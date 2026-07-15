@@ -10,7 +10,7 @@ interface TodayViewProps {
 }
 
 export default function TodayView({ theme, onExitFloating }: TodayViewProps) {
-  const { data, getTagGroup } = useData();
+  const { data, getTagGroup, toggleTaskComplete } = useData();
   const colors = theme === 'dark' ? TASK_BLOCK_COLORS_DARK : TASK_BLOCK_COLORS;
 
   const todayStr = getDateString(new Date());
@@ -195,6 +195,13 @@ export default function TodayView({ theme, onExitFloating }: TodayViewProps) {
               }}
               title={`${task.emoji} ${task.name} (${Math.floor(task.startHour)}:${String(Math.round((task.startHour % 1) * 60)).padStart(2, '0')}-${Math.floor(task.endHour)}:${String(Math.round((task.endHour % 1) * 60)).padStart(2, '0')})`}
             >
+              <input
+                type="checkbox"
+                className="today-view-checkbox"
+                checked={false}
+                onChange={() => toggleTaskComplete(task.id)}
+                onClick={(e) => e.stopPropagation()}
+              />
               <span className="today-view-task-name">{task.emoji} {task.name}</span>
             </div>
           );

@@ -39,8 +39,8 @@ export default function Titlebar() {
           </svg>
         </button>
         <button className="titlebar-btn maximize" onClick={handleMaximize} data-tooltip="最大化">
-          <svg width="10" height="10" viewBox="0 0 10 10">
-            <rect x="0.5" y="0.5" width="9" height="9" rx="1" fill="none" stroke="currentColor" strokeWidth="2" />
+          <svg width="12" height="12" viewBox="0 0 12 12">
+            <rect x="1" y="1" width="10" height="10" rx="1.5" fill="none" stroke="currentColor" strokeWidth="2" />
           </svg>
         </button>
         <button className="titlebar-btn close" onClick={handleClose} data-tooltip="关闭">

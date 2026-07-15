@@ -133,6 +133,30 @@
   white-space: nowrap;
 }
 
+/* 任务完成勾选框 */
+.today-view-checkbox {
+  width: 14px;
+  height: 14px;
+  min-width: 14px;
+  border-radius: 3px;
+  border: 1.5px solid currentColor;
+  background: transparent;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  margin-right: 4px;
+  opacity: 0.6;
+  transition: opacity 0.15s ease;
+}
+
+.today-view-checkbox:hover {
+  opacity: 1;
+}
+
+.today-view-checkbox:checked {
+  background: currentColor;
+}
+
 /* 当前时间指示线 */
 .today-view-now {
   position: absolute;

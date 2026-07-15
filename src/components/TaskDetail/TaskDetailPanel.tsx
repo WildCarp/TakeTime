@@ -103,7 +103,7 @@ export default function TaskDetailPanel({ open, task, onClose }: TaskDetailPanel
         window.dispatchEvent(new CustomEvent('task-complete-anim', { detail: { taskId: task.id } }));
       }
       toggleTaskComplete(task.id);
-      showToast(isNowComplete ? '任务已完成 🎉' : '任务已恢复', 'success');
+      showToast(isNowComplete ? '任务已完成' : '任务已恢复', 'success');
     }
   };
 

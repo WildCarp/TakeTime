@@ -49,7 +49,7 @@ export default function Calendar({ onTaskClick, viewState, zoomTimeAxis, zoomDat
       }, 800);
       // 播放完成提示音
       playCompleteSound();
-      showToast('任务已完成 🎉', 'success');
+      showToast('任务已完成', 'success');
     } else if (task && task.completed) {
       showToast('任务已恢复', 'success');
     }

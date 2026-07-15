@@ -77,7 +77,7 @@ export default function Sidebar({
         const imported = JSON.parse(ev.target?.result as string);
         if (imported.tagGroups && imported.tasks) {
           importData(imported);
-          showToast('导入成功', 'success');
+          showToast('数据导入成功', 'success');
         } else {
           showToast('文件格式错误', 'error');
         }
