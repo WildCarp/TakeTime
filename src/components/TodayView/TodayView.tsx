@@ -17,9 +17,19 @@ export default function TodayView({ theme, onExitFloating }: TodayViewProps) {
   const now = new Date();
   const currentHour = now.getHours() + now.getMinutes() / 60;
 
-  // 缩放和平移状态
-  const [timeStart, setTimeStart] = useState(6);
-  const [timeEnd, setTimeEnd] = useState(24);
+  // 缩放和平移状态：默认以【现在】为中心显示5小时
+  const [timeStart, setTimeStart] = useState(() => {
+    const center = currentHour;
+    const start = Math.max(0, center - 2.5);
+    const end = Math.min(24, start + 5);
+    return end === 24 ? 24 - 5 : start;
+  });
+  const [timeEnd, setTimeEnd] = useState(() => {
+    const center = currentHour;
+    const start = Math.max(0, center - 2.5);
+    const end = Math.min(24, start + 5);
+    return end === 24 ? 24 : Math.min(24, start + 5);
+  });
   const timeRange = timeEnd - timeStart;
 
   // 拖拽平移状态

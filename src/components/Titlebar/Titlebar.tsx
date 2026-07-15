@@ -34,19 +34,19 @@ export default function Titlebar() {
       </div>
       <div className="titlebar-controls">
         <button className="titlebar-btn minimize" onClick={handleMinimize} data-tooltip="最小化">
-          <svg width="10" height="1" viewBox="0 0 10 1">
-            <rect width="10" height="1" fill="currentColor" />
+          <svg width="10" height="2" viewBox="0 0 10 2">
+            <rect width="10" height="2" rx="1" fill="currentColor" />
           </svg>
         </button>
         <button className="titlebar-btn maximize" onClick={handleMaximize} data-tooltip="最大化">
           <svg width="10" height="10" viewBox="0 0 10 10">
-            <rect x="0.5" y="0.5" width="9" height="9" fill="none" stroke="currentColor" strokeWidth="1" />
+            <rect x="0.5" y="0.5" width="9" height="9" rx="1" fill="none" stroke="currentColor" strokeWidth="2" />
           </svg>
         </button>
         <button className="titlebar-btn close" onClick={handleClose} data-tooltip="关闭">
           <svg width="10" height="10" viewBox="0 0 10 10">
-            <line x1="0" y1="0" x2="10" y2="10" stroke="currentColor" strokeWidth="1.2" />
-            <line x1="10" y1="0" x2="0" y2="10" stroke="currentColor" strokeWidth="1.2" />
+            <line x1="1" y1="1" x2="9" y2="9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            <line x1="9" y1="1" x2="1" y2="9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
           </svg>
         </button>
       </div>

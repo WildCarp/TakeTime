@@ -11,7 +11,7 @@ export async function enterFloatingMode() {
   // 先设置最小尺寸（避免 setSize 时被限制）
   await appWindow.setMinSize(new LogicalSize(320, 80));
   await appWindow.setAlwaysOnTop(true);
-  await appWindow.setSize(new LogicalSize(520, 160));
+  await appWindow.setSize(new LogicalSize(1040, 160));
   await appWindow.center();
   // 设置透明背景以支持圆角
   document.documentElement.style.background = 'transparent';

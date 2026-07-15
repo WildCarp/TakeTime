@@ -61,6 +61,15 @@
   box-shadow: 0 0px 0 0 #c94444;
 }
 
+/* 退出按钮 tooltip 显示在左侧 */
+.today-view-exit[data-tooltip]::after {
+  bottom: auto;
+  left: auto;
+  right: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 /* 时间轴 */
 .today-view-timeline {
   flex: 1;

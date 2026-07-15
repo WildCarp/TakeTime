@@ -38,14 +38,14 @@ body {
 .app-container.app-floating {
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(114, 93, 66, 0.1);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(114, 93, 66, 0.08);
   margin: 6px;
   width: calc(100% - 12px);
   height: calc(100% - 12px);
 }
 
 [data-theme="dark"] .app-container.app-floating {
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(196, 184, 158, 0.1);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(196, 184, 158, 0.08);
 }
 
 /* 夜间模式 */
