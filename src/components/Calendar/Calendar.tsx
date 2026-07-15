@@ -7,6 +7,7 @@ import { Task } from '../../types';
 import { parseDateTime, formatDateLabel, addDays, getDateString, getHourOffset } from '../../utils/timeUtils';
 import { checkOverlap } from '../../utils/overlapCheck';
 import { playCompleteSound } from '../../utils/completeSound';
+import { showToast } from '../Toast/Toast';
 import { TASK_BLOCK_COLORS, TASK_BLOCK_COLORS_DARK } from '../../constants';
 import TaskBlock from './TaskBlock';
 import './Calendar.css';
@@ -48,6 +49,9 @@ export default function Calendar({ onTaskClick, viewState, zoomTimeAxis, zoomDat
       }, 800);
       // 播放完成提示音
       playCompleteSound();
+      showToast('任务已完成 🎉', 'success');
+    } else if (task && task.completed) {
+      showToast('任务已恢复', 'success');
     }
     toggleTaskComplete(taskId);
   }, [data.tasks, toggleTaskComplete]);
@@ -427,17 +431,15 @@ export default function Calendar({ onTaskClick, viewState, zoomTimeAxis, zoomDat
 
       {/* 网格线 */}
       <div className="grid-area">
-        {/* 小刻度竖线（更细更淡） */}
-        {timeTicks.map(({ x, isMajor }, i) => (
-          !isMajor ? (
-            <div
-              key={`tick-vline-${i}`}
-              className="grid-line vertical tick-line"
-              style={{ left: x }}
-            />
-          ) : null
+        {/* 刻度竖线（更细更淡，包括小刻度和中刻度） */}
+        {timeTicks.map(({ x }, i) => (
+          <div
+            key={`tick-vline-${i}`}
+            className="grid-line vertical tick-line"
+            style={{ left: x }}
+          />
         ))}
-        {/* 竖线（时间） */}
+        {/* 竖线（时间标签对应的整点线） */}
         {timeLabels.map(({ hour, x }) => (
           <div
             key={`vline-${hour}`}

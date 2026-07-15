@@ -110,9 +110,11 @@
 
 [data-theme="dark"] .confirm-btn.ok {
   background: #14a89b;
+  color: #fff;
   box-shadow: 0 2px 0 0 #0e8a7f;
 }
 
 [data-theme="dark"] .confirm-btn.ok:hover {
   background: #119085;
+  color: #fff;
 }
