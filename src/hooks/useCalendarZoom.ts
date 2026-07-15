@@ -1,6 +1,5 @@
 import { useState, useCallback } from 'react';
 import { CALENDAR_DEFAULTS } from '../constants';
-import { getToday } from '../utils/timeUtils';
 
 export interface CalendarViewState {
   startHour: number;
@@ -11,14 +10,35 @@ export interface CalendarViewState {
   dayOffset: number;
 }
 
-export function useCalendarZoom() {
-  const [viewState, setViewState] = useState<CalendarViewState>({
-    startHour: CALENDAR_DEFAULTS.startHour,
-    endHour: CALENDAR_DEFAULTS.endHour,
+// 计算"定位到现在"的初始视图状态
+function getInitialViewState(): CalendarViewState {
+  const now = new Date();
+  const nowHour = now.getHours() + now.getMinutes() / 60;
+  const timeRange = CALENDAR_DEFAULTS.endHour - CALENDAR_DEFAULTS.startHour;
+
+  // 将当前时间居中于横轴
+  let startHour = nowHour - timeRange / 2;
+  let endHour = nowHour + timeRange / 2;
+  if (startHour < 0) { startHour = 0; endHour = timeRange; }
+  if (endHour > 24) { endHour = 24; startHour = 24 - timeRange; }
+
+  // 将今天居中于竖轴
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const halfDays = Math.floor(CALENDAR_DEFAULTS.visibleDays / 2);
+  const startDate = new Date(today);
+  startDate.setDate(startDate.getDate() - halfDays);
+
+  return {
+    startHour,
+    endHour,
     visibleDays: CALENDAR_DEFAULTS.visibleDays,
-    startDate: getToday(),
+    startDate,
     dayOffset: 0,
-  });
+  };
+}
+
+export function useCalendarZoom() {
+  const [viewState, setViewState] = useState<CalendarViewState>(getInitialViewState);
 
   // 缩放时间轴（横轴）- 使用更平滑的缩放因子
   const zoomTimeAxis = useCallback((delta: number, mouseRatio: number) => {
