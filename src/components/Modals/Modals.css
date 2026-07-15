@@ -241,19 +241,19 @@
 }
 
 .btn-default {
-  background: #f5c31c;
+  background: #5cc4bb;
   color: #fff;
-  box-shadow: 0 3px 0 0 #c9a00e;
+  box-shadow: 0 3px 0 0 #3da69e;
 }
 
 .btn-default:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 0 0 #c9a00e;
+  box-shadow: 0 4px 0 0 #3da69e;
 }
 
 .btn-default:active {
   transform: translateY(1px);
-  box-shadow: 0 1px 0 0 #c9a00e;
+  box-shadow: 0 1px 0 0 #3da69e;
 }
 
 .btn-danger {
@@ -456,16 +456,16 @@
 }
 
 [data-theme="dark"] .btn-default {
-  background: #c9a00e;
-  box-shadow: 0 3px 0 0 #a0800a;
+  background: #3da69e;
+  box-shadow: 0 3px 0 0 #2d8880;
 }
 
 [data-theme="dark"] .btn-default:hover {
-  box-shadow: 0 4px 0 0 #a0800a;
+  box-shadow: 0 4px 0 0 #2d8880;
 }
 
 [data-theme="dark"] .btn-default:active {
-  box-shadow: 0 1px 0 0 #a0800a;
+  box-shadow: 0 1px 0 0 #2d8880;
 }
 
 [data-theme="dark"] .btn-danger {

@@ -18,7 +18,7 @@
   align-items: center;
   z-index: 100;
   background: #f8f4ea;
-  border-bottom: 2px solid rgba(114, 93, 66, 0.22);
+  border-bottom: 2px solid rgba(114, 93, 66, 0.20);
   overflow: hidden;
 }
 
@@ -41,8 +41,23 @@
   width: 80px;
   z-index: 100;
   background: #f8f4ea;
-  border-right: 2px solid rgba(114, 93, 66, 0.22);
+  border-right: 2px solid rgba(114, 93, 66, 0.20);
   overflow: hidden;
+}
+
+/* 左上角坐标轴交叉处填充 */
+.calendar-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80px;
+  height: 36px;
+  background: #f8f4ea;
+  border-right: 2px solid rgba(114, 93, 66, 0.20);
+  border-bottom: 2px solid rgba(114, 93, 66, 0.20);
+  z-index: 101;
+  box-sizing: border-box;
 }
 
 .date-label {
@@ -104,7 +119,7 @@
 
 .grid-line.horizontal.week-boundary {
   height: 2px;
-  background: rgba(114, 93, 66, 0.22);
+  background: rgba(114, 93, 66, 0.18);
 }
 
 /* 当天行背景色区分 */
@@ -143,7 +158,7 @@
 
 [data-theme="dark"] .time-axis {
   background: #1f1a12;
-  border-bottom: 2px solid rgba(196, 184, 158, 0.22);
+  border-bottom: 2px solid rgba(196, 184, 158, 0.20);
 }
 
 [data-theme="dark"] .date-axis {
@@ -151,6 +166,11 @@
   border-right: 2px solid rgba(196, 184, 158, 0.22);
 }
 
+[data-theme="dark"] .calendar-container::before {
+  background: #1f1a12;
+  border-right-color: rgba(196, 184, 158, 0.22);
+  border-bottom-color: rgba(196, 184, 158, 0.22);
+}
 [data-theme="dark"] .time-label,
 [data-theme="dark"] .date-label {
   color: #a09880;
@@ -170,7 +190,7 @@
 
 [data-theme="dark"] .grid-line.horizontal.week-boundary {
   height: 2px;
-  background: rgba(196, 184, 158, 0.18);
+  background: rgba(196, 184, 158, 0.13);
 }
 
 [data-theme="dark"] .grid-line.vertical.hour-line {
