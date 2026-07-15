@@ -221,17 +221,23 @@
   bottom: calc(100% + 6px);
   left: 50%;
   transform: translateX(-50%);
-  transition: opacity 0.2s ease 0.2s;
+  transition: opacity 0.15s ease 0.25s;
+}
+
+/* 旋转过程中隐藏 tooltip：按钮 transition 为 0.2s，tooltip 延迟 0.25s 才显示 */
+.tag-group-expand-btn[data-tooltip]:hover::after {
+  transition: opacity 0.15s ease 0.25s;
 }
 
 .tag-group-expand-btn.expanded[data-tooltip]::after {
-  /* 按钮旋转了90度，需要反向旋转tooltip并重新定位 */
+  /* 按钮旋转了90度（顺时针），CSS的"上方"变成了屏幕的"左方"
+     要让tooltip出现在屏幕正上方，需要用CSS的"right"方向 */
   bottom: auto;
   left: auto;
-  right: calc(100% + 6px);
   top: 50%;
+  right: calc(100% + 6px);
   transform: rotate(-90deg) translateY(-50%);
-  transform-origin: right center;
+  transform-origin: center center;
 }
 
 /* 修改按钮 - 在颜色条上，默认隐藏 hover 显示 */

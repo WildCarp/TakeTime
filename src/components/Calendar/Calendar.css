@@ -95,6 +95,7 @@
   left: 0;
   right: 0;
   width: 100%;
+  background: rgba(114, 93, 66, 0.08);
 }
 
 /* 当天行背景色区分 */
@@ -152,6 +153,10 @@
 
 [data-theme="dark"] .grid-line {
   background: rgba(196, 184, 158, 0.04);
+}
+
+[data-theme="dark"] .grid-line.horizontal {
+  background: rgba(196, 184, 158, 0.06);
 }
 
 [data-theme="dark"] .grid-line.vertical.hour-line {
