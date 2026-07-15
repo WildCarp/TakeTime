@@ -9,6 +9,9 @@
   user-select: none;
   flex-shrink: 0;
   -webkit-app-region: drag;
+  overflow: visible;
+  position: relative;
+  z-index: 100;
 }
 
 .titlebar-title {

@@ -133,28 +133,35 @@
   white-space: nowrap;
 }
 
-/* 任务完成勾选框 */
+/* 任务完成勾选框（与正常模式一致） */
 .today-view-checkbox {
-  width: 14px;
-  height: 14px;
-  min-width: 14px;
-  border-radius: 3px;
-  border: 1.5px solid currentColor;
-  background: transparent;
-  appearance: none;
-  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  background: rgba(0, 0, 0, 0.12);
   cursor: pointer;
   margin-right: 4px;
-  opacity: 0.6;
-  transition: opacity 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 700;
+  color: inherit;
+  opacity: 0.7;
+  transition: all 0.15s ease;
 }
 
 .today-view-checkbox:hover {
   opacity: 1;
+  background: rgba(0, 0, 0, 0.2);
 }
 
-.today-view-checkbox:checked {
+.today-view-checkbox.checked {
   background: currentColor;
+  border-color: currentColor;
+  opacity: 1;
 }
 
 /* 当前时间指示线 */

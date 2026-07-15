@@ -195,13 +195,13 @@ export default function TodayView({ theme, onExitFloating }: TodayViewProps) {
               }}
               title={`${task.emoji} ${task.name} (${Math.floor(task.startHour)}:${String(Math.round((task.startHour % 1) * 60)).padStart(2, '0')}-${Math.floor(task.endHour)}:${String(Math.round((task.endHour % 1) * 60)).padStart(2, '0')})`}
             >
-              <input
-                type="checkbox"
+              <div
                 className="today-view-checkbox"
-                checked={false}
-                onChange={() => toggleTaskComplete(task.id)}
-                onClick={(e) => e.stopPropagation()}
-              />
+                onPointerDown={(e) => e.stopPropagation()}
+                onClick={(e) => { e.stopPropagation(); toggleTaskComplete(task.id); }}
+              >
+                ✓
+              </div>
               <span className="today-view-task-name">{task.emoji} {task.name}</span>
             </div>
           );
