@@ -1,3 +1,9 @@
 node_modules
 dist
 .DS_Store
+
+# 桌面版（Tauri）
+desktop/node_modules
+desktop/dist
+desktop/src-tauri/target
+

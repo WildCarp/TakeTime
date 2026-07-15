@@ -43,26 +43,29 @@ npm run preview
 
 ### 构建步骤
 
+桌面版代码已合并进本仓库的 `desktop/` 子目录，单一仓库即可完整构建，无需额外 clone 其他项目。
+
 ```bash
-# 1. 在主项目中构建前端（使用相对路径）
-cd TakeTime
+# 1. 安装网页版依赖并构建前端（产物输出到仓库根目录 dist/）
 npm install
-npx vite build --base=./
+npm run build
 
-# 2. 进入桌面版项目目录
-cd ../TakeTime-Desktop
-
-# 3. 安装依赖
+# 2. 进入桌面版目录，安装依赖
+cd desktop
 npm install
 
-# 4. 将前端构建产物复制到桌面版目录
-#    (Windows PowerShell)
-Remove-Item -Recurse -Force dist\*
-Copy-Item -Recurse ..\TakeTime\dist\* dist\
+# 3. （可选）重新生成应用图标（默认使用内置的纯色图标源）
+npm run generate-icons
 
-# 5. 构建 Tauri 应用
-npx tauri build
+# 4. 构建 Tauri 应用（会自动使用上层 dist/ 作为前端资源）
+npm run tauri:build
 ```
+
+> 也可以使用根目录的一键脚本：`npm run desktop:build`（等价于先 build 网页版再 tauri build）。
+
+构建完成后，安装包位于：
+- `desktop/src-tauri/target/release/bundle/nsis/TakeTime_1.0.0_x64-setup.exe`（NSIS 安装程序，推荐）
+- `desktop/src-tauri/target/release/bundle/msi/TakeTime_1.0.0_x64_en-US.msi`（MSI 安装包）
 
 构建完成后，安装包位于：
 - `src-tauri/target/release/bundle/nsis/TakeTime_1.0.0_x64-setup.exe`（NSIS 安装程序，推荐）
@@ -92,23 +95,18 @@ npx tauri build
 ## 项目结构
 
 ```
-TakeTime/              # 主项目（前端源码）
-├── src/
-│   ├── components/    # React 组件
-│   ├── hooks/         # 自定义 Hooks
-│   ├── stores/        # 数据管理
-│   ├── utils/         # 工具函数
-│   ├── types/         # TypeScript 类型
-│   └── constants/     # 常量定义
-├── dist/              # 构建产物
-└── package.json
-
-TakeTime-Desktop/      # 桌面版项目（Tauri 包装）
-├── dist/              # 前端构建产物（从主项目复制）
-├── src-tauri/
-│   ├── src/main.rs    # Rust 入口
-│   ├── Cargo.toml     # Rust 依赖
-│   ├── tauri.conf.json # Tauri 配置
-│   └── icons/         # 应用图标
+TakeTime/                 # 单一仓库（网页版 + 桌面版）
+├── src/                  # 前端源码（React 组件 / hooks / stores / utils ...）
+├── public/
+│   └── favicon.svg       # 网页版图标（纯色）
+├── dist/                 # 网页版构建产物（桌面版 Tauri 的前端资源）
+├── desktop/              # 桌面版项目（Tauri 包装，合并自原 TakeTime-Desktop）
+│   ├── generate-icons.js # 图标生成脚本（使用内置纯色图标源，路径自包含）
+│   ├── src-tauri/
+│   │   ├── src/main.rs   # Rust 入口
+│   │   ├── Cargo.toml    # Rust 依赖
+│   │   ├── tauri.conf.json # Tauri 配置（distDir 指向上层 dist/）
+│   │   └── icons/        # 应用图标（含 icon-source.svg 内置纯色源）
+│   └── package.json
 └── package.json
 ```

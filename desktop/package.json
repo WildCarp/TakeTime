@@ -1,0 +1,17 @@
+{
+  "name": "taketime-desktop",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "generate-icons": "node generate-icons.js",
+    "tauri": "tauri",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build",
+    "build": "cd src-tauri && cargo build --release"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^1",
+    "png-to-ico": "^3.0.2",
+    "sharp": "^0.35.3"
+  }
+}
