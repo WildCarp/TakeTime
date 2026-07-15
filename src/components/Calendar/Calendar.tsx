@@ -448,7 +448,7 @@ export default function Calendar({ onTaskClick, viewState, zoomTimeAxis, zoomDat
           />
         ))}
         {/* 横线（日期） */}
-        {dateLabels.map(({ label, y, isToday }) => (
+        {dateLabels.map(({ date, label, y, isToday }) => (
           <React.Fragment key={`row-${label}`}>
             {/* 当天行背景色区分 */}
             {isToday && (
@@ -458,7 +458,7 @@ export default function Calendar({ onTaskClick, viewState, zoomTimeAxis, zoomDat
               />
             )}
             <div
-              className="grid-line horizontal"
+              className={`grid-line horizontal${date.getDay() === 1 ? ' week-boundary' : ''}`}
               style={{ top: y }}
             />
           </React.Fragment>

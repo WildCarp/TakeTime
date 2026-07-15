@@ -2,6 +2,8 @@ import { useState, useRef } from 'react';
 import { useData } from '../../stores/dataStore';
 import { Task } from '../../types';
 import { DEFAULT_TAG_GROUP_ID, PRESET_COLORS, PRESET_COLORS_DARK, TASK_BLOCK_COLORS, TASK_BLOCK_COLORS_DARK } from '../../constants';
+import { showToast } from '../Toast/Toast';
+import { showConfirm } from '../Toast/ConfirmDialog';
 import './Sidebar.css';
 
 interface SidebarProps {
@@ -55,11 +57,15 @@ export default function Sidebar({
     a.download = `taketime-backup-${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     URL.revokeObjectURL(url);
+    showToast('数据导出成功', 'success');
   };
 
   // 导入数据
-  const handleImport = () => {
-    fileInputRef.current?.click();
+  const handleImport = async () => {
+    const confirmed = await showConfirm('导入数据将覆盖当前所有数据，确定继续吗？');
+    if (confirmed) {
+      fileInputRef.current?.click();
+    }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,12 +77,12 @@ export default function Sidebar({
         const imported = JSON.parse(ev.target?.result as string);
         if (imported.tagGroups && imported.tasks) {
           importData(imported);
-          alert('导入成功！');
+          showToast('导入成功', 'success');
         } else {
-          alert('文件格式错误');
+          showToast('文件格式错误', 'error');
         }
       } catch {
-        alert('文件解析失败');
+        showToast('文件解析失败', 'error');
       }
     };
     reader.readAsText(file);

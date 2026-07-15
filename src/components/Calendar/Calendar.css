@@ -102,6 +102,11 @@
   background: rgba(114, 93, 66, 0.18);
 }
 
+.grid-line.horizontal.week-boundary {
+  height: 2px;
+  background: rgba(114, 93, 66, 0.35);
+}
+
 /* 当天行背景色区分 */
 .today-row-bg {
   position: absolute;
@@ -161,6 +166,11 @@
 
 [data-theme="dark"] .grid-line.horizontal {
   background: rgba(196, 184, 158, 0.13);
+}
+
+[data-theme="dark"] .grid-line.horizontal.week-boundary {
+  height: 2px;
+  background: rgba(196, 184, 158, 0.28);
 }
 
 [data-theme="dark"] .grid-line.vertical.hour-line {

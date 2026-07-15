@@ -101,7 +101,7 @@
 [data-theme="dark"] .confirm-btn.cancel {
   background: #3a3025;
   color: #d4c9b4;
-  box-shadow: 0 2px 0 0 #2a2018;
+  box-shadow: 0 2px 0 0 #1a1510;
 }
 
 [data-theme="dark"] .confirm-btn.cancel:hover {
