@@ -31,7 +31,7 @@ export default function Calendar({ onTaskClick, viewState, zoomTimeAxis, zoomDat
   // "现在"指示线：当前时间
   const [nowTime, setNowTime] = useState(new Date());
   useEffect(() => {
-    const timer = setInterval(() => setNowTime(new Date()), 60000); // 每分钟更新
+    const timer = setInterval(() => setNowTime(new Date()), 10000); // 每10秒更新
     return () => clearInterval(timer);
   }, []);
 

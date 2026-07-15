@@ -2,7 +2,7 @@ import { useState, useMemo, useCallback, useRef, useEffect } from 'react';
 import { useData } from '../../stores/dataStore';
 import { parseDateTime, getDateString } from '../../utils/timeUtils';
 import { TASK_BLOCK_COLORS, TASK_BLOCK_COLORS_DARK } from '../../constants';
-import { playCompleteSound } from '../../utils/sound';
+import { playCompleteSound } from '../../utils/completeSound';
 import './TodayView.css';
 
 interface TodayViewProps {
@@ -15,8 +15,14 @@ export default function TodayView({ theme, onExitFloating }: TodayViewProps) {
   const colors = theme === 'dark' ? TASK_BLOCK_COLORS_DARK : TASK_BLOCK_COLORS;
 
   const todayStr = getDateString(new Date());
-  const now = new Date();
-  const currentHour = now.getHours() + now.getMinutes() / 60;
+
+  // 【现在】指示线：每10秒更新
+  const [nowTime, setNowTime] = useState(new Date());
+  useEffect(() => {
+    const timer = setInterval(() => setNowTime(new Date()), 10000);
+    return () => clearInterval(timer);
+  }, []);
+  const currentHour = nowTime.getHours() + nowTime.getMinutes() / 60;
 
   // 缩放和平移状态：默认以【现在】为中心显示5小时
   const [timeStart, setTimeStart] = useState(() => {
@@ -301,7 +307,7 @@ export default function TodayView({ theme, onExitFloating }: TodayViewProps) {
                 background: task.bgColor,
                 color: task.textColor,
               }}
-              title={`${task.emoji} ${task.name}`}
+
               onPointerDown={(e) => handleTaskPointerDown(e, task.id, task.startHour, task.endHour)}
             >
               <span className={`today-view-task-name ${task.completed ? 'strikethrough' : ''}`}>

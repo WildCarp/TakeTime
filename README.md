@@ -13,9 +13,7 @@
 
 ---
 
-## 网页版部署
-
-### 方式一：本地运行
+## 网页版本地部署
 
 ```bash
 # 安装依赖
@@ -30,23 +28,6 @@ npm run build
 # 预览构建结果
 npm run preview
 ```
-
-### 方式二：Vercel 部署
-
-1. Fork 本仓库到你的 GitHub 账号
-2. 登录 [Vercel](https://vercel.com)，点击 "New Project"
-3. 导入你 Fork 的仓库
-4. 框架选择 Vite，其他保持默认
-5. 点击 Deploy，等待部署完成
-
-### 方式三：GitHub Pages 部署
-
-```bash
-# 构建并部署到 gh-pages 分支
-npm run deploy
-```
-
-> 注意：GitHub Pages 部署时 `vite.config.ts` 中的 `base` 会自动设为 `/TakeTime/`。
 
 ---
 
@@ -95,8 +76,9 @@ npx tauri build
 
 - **自定义标题栏**：UI 风格统一的窗口标题栏
 - **悬浮模式**：点击悬浮球的 ⬡ 按钮进入，窗口变为置顶小窗，显示今日时间轴
-  - 支持滚轮缩放时间轴
-  - 支持拖拽平移时间轴
+  - 滚轮缩放时间轴
+  - 右键拖拽平移时间轴
+  - 左键拖拽移动/拉伸任务
   - 点击 ✕ 退出悬浮模式
 
 ---
