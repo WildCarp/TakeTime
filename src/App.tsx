@@ -92,7 +92,7 @@ function AppContent() {
   }
 
   return (
-    <div className="app-container" data-theme={theme}>
+    <div className={`app-container ${isTauriEnv ? 'is-tauri' : ''}`} data-theme={theme}>
       {/* 自定义标题栏（仅 Tauri） */}
       <Titlebar />
 

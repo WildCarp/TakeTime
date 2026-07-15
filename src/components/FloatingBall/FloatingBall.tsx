@@ -41,10 +41,11 @@ export default function FloatingBall({
     const dx = e.clientX - dragStart.current.x;
     const dy = e.clientY - dragStart.current.y;
     if (Math.abs(dx) > 3 || Math.abs(dy) > 3) hasMoved.current = true;
+    const minY = isTauriEnv ? 36 : 0;
     const newX = Math.max(0, Math.min(window.innerWidth - 56, dragStart.current.posX + dx));
-    const newY = Math.max(0, Math.min(window.innerHeight - 56, dragStart.current.posY + dy));
+    const newY = Math.max(minY, Math.min(window.innerHeight - 56, dragStart.current.posY + dy));
     setPosition({ x: newX, y: newY });
-  }, [dragging]);
+  }, [dragging, isTauriEnv]);
 
   const handlePointerUp = useCallback((e: React.PointerEvent) => {
     setDragging(false);

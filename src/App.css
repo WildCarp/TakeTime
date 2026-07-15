@@ -53,6 +53,12 @@ body {
   background: #1f1a12;
 }
 
+/* Tauri 环境：窗口圆角（非全屏） */
+.app-container.is-tauri {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
 /* 滚动条美化 */
 ::-webkit-scrollbar {
   width: 6px;

@@ -43,28 +43,40 @@
   height: 28px;
   border-radius: 50%;
   border: none;
-  background: rgba(114, 93, 66, 0.06);
-  color: #9f927d;
+  background: #19c8b9;
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.15s ease;
   position: relative;
+  box-shadow: 0 2px 0 0 #11a89b;
 }
 
 .titlebar-btn:hover {
-  background: rgba(114, 93, 66, 0.12);
-  color: #725d42;
+  background: #15b5a7;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 0 0 #11a89b;
+}
+
+.titlebar-btn.close {
+  background: #e05a5a;
+  box-shadow: 0 2px 0 0 #c94444;
 }
 
 .titlebar-btn.close:hover {
-  background: #e05a5a;
-  color: #fff;
+  background: #d04a4a;
+  box-shadow: 0 3px 0 0 #c94444;
 }
 
 .titlebar-btn:active {
-  transform: scale(0.9);
+  transform: translateY(1px);
+  box-shadow: 0 0px 0 0 #11a89b;
+}
+
+.titlebar-btn.close:active {
+  box-shadow: 0 0px 0 0 #c94444;
 }
 
 /* tooltip 位置 */
@@ -90,16 +102,21 @@
 }
 
 [data-theme="dark"] .titlebar-btn {
-  background: rgba(196, 184, 158, 0.06);
-  color: #a09880;
+  background: #14a89b;
+  box-shadow: 0 2px 0 0 #0e8a7f;
 }
 
 [data-theme="dark"] .titlebar-btn:hover {
-  background: rgba(196, 184, 158, 0.12);
-  color: #e0d6c8;
+  background: #119085;
+  box-shadow: 0 3px 0 0 #0e8a7f;
+}
+
+[data-theme="dark"] .titlebar-btn.close {
+  background: #993838;
+  box-shadow: 0 2px 0 0 #7a2c2c;
 }
 
 [data-theme="dark"] .titlebar-btn.close:hover {
-  background: #993838;
-  color: #fff;
+  background: #883030;
+  box-shadow: 0 3px 0 0 #7a2c2c;
 }

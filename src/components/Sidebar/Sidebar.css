@@ -499,3 +499,12 @@
   background: #119085;
   box-shadow: 0 3px 0 0 #0e8a7f;
 }
+
+/* Tauri 环境：侧边栏不覆盖顶栏 */
+.is-tauri .sidebar {
+  top: 36px;
+}
+
+.is-tauri .sidebar-toggle.collapsed {
+  top: 52px;
+}

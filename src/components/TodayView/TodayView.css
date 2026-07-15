@@ -38,19 +38,27 @@
   height: 24px;
   border-radius: 50%;
   border: none;
-  background: rgba(114, 93, 66, 0.08);
-  color: #9f927d;
-  font-size: 12px;
+  background: #e05a5a;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.15s ease;
+  box-shadow: 0 2px 0 0 #c94444;
 }
 
 .today-view-exit:hover {
-  background: #e05a5a;
-  color: #fff;
+  background: #d04a4a;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 0 0 #c94444;
+}
+
+.today-view-exit:active {
+  transform: translateY(1px);
+  box-shadow: 0 0px 0 0 #c94444;
 }
 
 /* 时间轴 */
@@ -158,13 +166,13 @@
 }
 
 [data-theme="dark"] .today-view-exit {
-  background: rgba(196, 184, 158, 0.08);
-  color: #a09880;
+  background: #993838;
+  box-shadow: 0 2px 0 0 #7a2c2c;
 }
 
 [data-theme="dark"] .today-view-exit:hover {
-  background: #993838;
-  color: #fff;
+  background: #883030;
+  box-shadow: 0 3px 0 0 #7a2c2c;
 }
 
 [data-theme="dark"] .today-view-tick {

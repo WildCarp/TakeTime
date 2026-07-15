@@ -129,3 +129,12 @@
 [data-theme="dark"] .drawer-close:hover {
   background: #119085;
 }
+
+/* Tauri 环境：面板不覆盖顶栏 */
+.is-tauri .drawer-overlay {
+  top: 36px;
+}
+
+.is-tauri .drawer-panel {
+  top: 36px;
+}
