@@ -29,8 +29,13 @@ body {
 
 /* 悬浮模式 */
 .app-container.app-floating {
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(114, 93, 66, 0.1);
+}
+
+[data-theme="dark"] .app-container.app-floating {
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(196, 184, 158, 0.1);
 }
 
 /* 夜间模式 */

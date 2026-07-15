@@ -7,20 +7,27 @@ export function isTauri(): boolean {
 
 export async function enterFloatingMode() {
   if (!isTauri()) return;
-  const { appWindow } = await import('@tauri-apps/api/window');
+  const { appWindow, LogicalSize } = await import('@tauri-apps/api/window');
+  // 先设置最小尺寸（避免 setSize 时被限制）
+  await appWindow.setMinSize(new LogicalSize(320, 100));
   await appWindow.setDecorations(false);
   await appWindow.setAlwaysOnTop(true);
-  await appWindow.setSize(new (await import('@tauri-apps/api/window')).LogicalSize(480, 160));
-  await appWindow.setMinSize(new (await import('@tauri-apps/api/window')).LogicalSize(320, 100));
+  await appWindow.setSize(new LogicalSize(520, 160));
   await appWindow.center();
+  // 设置透明背景以支持圆角
+  document.documentElement.style.background = 'transparent';
+  document.body.style.background = 'transparent';
 }
 
 export async function exitFloatingMode() {
   if (!isTauri()) return;
-  const { appWindow } = await import('@tauri-apps/api/window');
+  const { appWindow, LogicalSize } = await import('@tauri-apps/api/window');
+  // 恢复背景色
+  document.documentElement.style.background = '';
+  document.body.style.background = '';
   await appWindow.setDecorations(true);
   await appWindow.setAlwaysOnTop(false);
-  await appWindow.setMinSize(new (await import('@tauri-apps/api/window')).LogicalSize(900, 600));
-  await appWindow.setSize(new (await import('@tauri-apps/api/window')).LogicalSize(1200, 800));
+  await appWindow.setMinSize(new LogicalSize(900, 600));
+  await appWindow.setSize(new LogicalSize(1200, 800));
   await appWindow.center();
 }
