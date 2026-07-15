@@ -105,7 +105,7 @@
 }
 
 [data-theme="dark"] .confirm-btn.cancel:hover {
-  background: #4a3d2e;
+  background: #4d3f32;
 }
 
 [data-theme="dark"] .confirm-btn.ok {
@@ -115,6 +115,6 @@
 }
 
 [data-theme="dark"] .confirm-btn.ok:hover {
-  background: #119085;
+  background: #1abfb0;
   color: #fff;
 }

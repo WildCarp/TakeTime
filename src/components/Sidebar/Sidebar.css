@@ -357,8 +357,9 @@
   font-size: 11px;
   color: #9f927d;
   text-align: center;
-  padding: 4px 0;
+  padding: 2px 0;
   margin: 0;
+  line-height: 1.2;
 }
 
 /* 夜间模式 */

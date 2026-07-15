@@ -99,7 +99,7 @@
   left: 0;
   right: 0;
   width: 100%;
-  background: rgba(114, 93, 66, 0.15);
+  background: rgba(114, 93, 66, 0.18);
 }
 
 /* 当天行背景色区分 */
@@ -160,7 +160,7 @@
 }
 
 [data-theme="dark"] .grid-line.horizontal {
-  background: rgba(196, 184, 158, 0.10);
+  background: rgba(196, 184, 158, 0.13);
 }
 
 [data-theme="dark"] .grid-line.vertical.hour-line {
