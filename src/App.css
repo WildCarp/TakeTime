@@ -1,0 +1,179 @@
+/* 全局样式 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: Nunito, 'Noto Sans SC', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.app-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background: #faf6ee;
+  transition: background 0.3s ease;
+}
+
+/* 夜间模式 */
+[data-theme="dark"] .app-container {
+  background: #1f1a12;
+}
+
+/* 滚动条美化 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c4b89e;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a89878;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: #555;
+}
+
+/* 选中文本颜色 */
+::selection {
+  background: rgba(25, 200, 185, 0.2);
+  color: inherit;
+}
+
+/* 自定义鼠标样式 */
+* {
+  cursor: default;
+}
+
+a, button, [role="button"],
+.sidebar-task-item,
+.tag-group-expand-btn,
+.tag-group-edit-btn,
+.sidebar-add-btn,
+.sidebar-toggle-btn,
+.sidebar-toggle.collapsed,
+.floating-ball-main,
+.floating-ball-child,
+.modal-close,
+.drawer-close,
+.color-option,
+.emoji-option,
+.weekday-option,
+.custom-select-trigger,
+.custom-select-option,
+.custom-datetime-trigger,
+.toggle-switch,
+.task-checkbox,
+.btn {
+  cursor: pointer;
+}
+
+input, textarea, select {
+  cursor: text;
+}
+
+.task-block {
+  cursor: grab;
+}
+
+.task-block:active {
+  cursor: grabbing;
+}
+
+.resize-handle {
+  cursor: ew-resize;
+}
+
+/* 自定义 tooltip（替代原生 title） */
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: rgba(50, 40, 30, 0.88);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: Nunito, 'Noto Sans SC', sans-serif;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 9999;
+}
+
+[data-tooltip]:hover::after {
+  opacity: 1;
+}
+
+/* 悬浮球子球 tooltip 显示在左侧 */
+.floating-ball-child[data-tooltip]::after {
+  bottom: auto;
+  left: auto;
+  transform: none;
+  right: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* 左上角展开按钮 tooltip 显示在右侧 */
+.sidebar-toggle.collapsed[data-tooltip]::after {
+  bottom: auto;
+  left: calc(100% + 8px);
+  transform: translateY(-50%);
+  top: 50%;
+}
+
+/* 收起侧边栏按钮 tooltip 显示在右侧 */
+.sidebar-toggle-btn[data-tooltip]::after {
+  bottom: auto;
+  left: calc(100% + 8px);
+  transform: translateY(-50%);
+  top: 50%;
+}
+
+/* 新建标签组按钮 tooltip 显示在左侧 */
+.sidebar-add-btn[data-tooltip]::after {
+  bottom: auto;
+  left: auto;
+  right: calc(100% + 8px);
+  transform: translateY(-50%);
+  top: 50%;
+}
+
+/* 详情面板关闭按钮 tooltip 显示在左侧 */
+.drawer-close[data-tooltip]::after {
+  bottom: auto;
+  left: auto;
+  right: calc(100% + 8px);
+  transform: translateY(-50%);
+  top: 50%;
+}
+
+[data-theme="dark"] [data-tooltip]::after {
+  background: rgba(30, 25, 18, 0.92);
+}

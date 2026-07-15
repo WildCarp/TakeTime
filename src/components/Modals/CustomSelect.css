@@ -1,0 +1,384 @@
+.custom-select {
+  position: relative;
+  width: 100%;
+}
+
+.custom-select-trigger {
+  padding: 10px 16px;
+  border-radius: 50px;
+  border: 2.5px solid #c4b89e;
+  background: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  color: #725d42;
+  font-family: Nunito, 'Noto Sans SC', sans-serif;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.custom-select.open .custom-select-trigger,
+.custom-select-trigger:hover {
+  border-color: #19c8b9;
+  box-shadow: 0 0 0 3px rgba(25, 200, 185, 0.12);
+}
+
+.custom-select-arrow {
+  font-size: 16px;
+  color: #9f927d;
+  transition: transform 0.2s ease;
+}
+
+.custom-select.open .custom-select-arrow {
+  transform: rotate(180deg);
+}
+
+.custom-select-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 2px solid #e8dcc8;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(61, 52, 40, 0.12);
+  z-index: 100;
+  max-height: 200px;
+  overflow-y: auto;
+  padding: 6px;
+  animation: selectDropIn 0.2s ease;
+}
+
+@keyframes selectDropIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.custom-select-option {
+  padding: 8px 14px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #725d42;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.custom-select-option:hover {
+  background: rgba(25, 200, 185, 0.08);
+}
+
+.custom-select-option.selected {
+  background: #19c8b9;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* 日期时间选择器 */
+.custom-datetime {
+  position: relative;
+  width: 100%;
+}
+
+.custom-datetime-trigger {
+  padding: 10px 16px;
+  border-radius: 50px;
+  border: 2.5px solid #c4b89e;
+  background: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  color: #725d42;
+  font-family: Nunito, 'Noto Sans SC', sans-serif;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.custom-datetime-trigger:hover,
+.custom-datetime.open .custom-datetime-trigger {
+  border-color: #19c8b9;
+  box-shadow: 0 0 0 3px rgba(25, 200, 185, 0.12);
+}
+
+.custom-datetime-icon {
+  font-size: 16px;
+  color: #9f927d;
+  transition: transform 0.2s ease;
+}
+
+.custom-datetime.open .custom-datetime-icon {
+  transform: rotate(180deg);
+}
+
+.custom-datetime-panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 2px solid #e8dcc8;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(61, 52, 40, 0.12);
+  z-index: 2100;
+  padding: 12px;
+  animation: selectDropIn 0.2s ease;
+}
+
+.custom-datetime-panel.drop-up {
+  top: auto;
+  bottom: calc(100% + 6px);
+  animation: selectDropUp 0.2s ease;
+}
+
+@keyframes selectDropUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.custom-datetime-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.custom-datetime-row:last-child {
+  margin-bottom: 0;
+}
+
+.custom-datetime-field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.custom-datetime-field label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #9f927d;
+  letter-spacing: 0.02em;
+}
+
+.custom-datetime-field input {
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 2px solid #e8dcc8;
+  background: #faf8f2;
+  font-size: 13px;
+  font-weight: 500;
+  color: #725d42;
+  font-family: Nunito, 'Noto Sans SC', sans-serif;
+  outline: none;
+  text-align: center;
+  transition: all 0.15s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.custom-datetime-field input:focus {
+  border-color: #19c8b9;
+  box-shadow: 0 0 0 2px rgba(25, 200, 185, 0.12);
+}
+
+/* 时分 spinner 样式 */
+.time-row {
+  align-items: flex-end;
+}
+
+.custom-datetime-time-field {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.custom-datetime-time-field label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #9f927d;
+  letter-spacing: 0.02em;
+}
+
+.time-spinner {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  height: 36px;
+}
+
+.time-spinner input {
+  width: 36px;
+  min-width: 0;
+  flex: 1;
+  padding: 0 2px;
+  border-radius: 0;
+  border: 2px solid #e8dcc8;
+  border-left: none;
+  border-right: none;
+  background: #faf8f2;
+  font-size: 15px;
+  font-weight: 600;
+  color: #725d42;
+  font-family: Nunito, 'Noto Sans SC', sans-serif;
+  outline: none;
+  text-align: center;
+  transition: all 0.15s ease;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.time-spinner input:focus {
+  border-color: #19c8b9;
+  background: #fff;
+}
+
+.time-spinner input.spinner-input-wide {
+  width: 48px;
+}
+
+.time-spinner-btn {
+  width: 26px;
+  flex-shrink: 0;
+  height: 100%;
+  border: 2px solid #e8dcc8;
+  background: #f5f0e6;
+  color: #794f27;
+  font-size: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.12s ease;
+  user-select: none;
+  padding: 0;
+}
+
+.time-spinner-btn.left {
+  border-radius: 10px 0 0 10px;
+}
+
+.time-spinner-btn.right {
+  border-radius: 0 10px 10px 0;
+}
+
+.time-spinner-btn:hover {
+  background: #19c8b9;
+  border-color: #19c8b9;
+  color: #fff;
+}
+
+.time-spinner-btn:active {
+  background: #15b5a7;
+}
+
+.time-separator {
+  font-size: 18px;
+  font-weight: 700;
+  color: #9f927d;
+  width: 16px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  align-self: flex-end;
+  flex-shrink: 0;
+}
+
+/* 夜间模式 */
+[data-theme="dark"] .custom-select-trigger {
+  background: #1f1a12;
+  border-color: #5a4d3a;
+  color: #e0d6c8;
+}
+
+[data-theme="dark"] .custom-select.open .custom-select-trigger,
+[data-theme="dark"] .custom-select-trigger:hover {
+  border-color: #19c8b9;
+}
+
+[data-theme="dark"] .custom-select-dropdown {
+  background: #2a2218;
+  border-color: #4a3d2e;
+}
+
+[data-theme="dark"] .custom-select-option {
+  color: #d4c9b4;
+}
+
+[data-theme="dark"] .custom-select-option:hover {
+  background: rgba(25, 200, 185, 0.12);
+}
+
+[data-theme="dark"] .custom-select-option.selected {
+  background: #19c8b9;
+  color: #fff;
+}
+
+[data-theme="dark"] .custom-datetime-trigger {
+  background: #1f1a12;
+  border-color: #5a4d3a;
+  color: #e0d6c8;
+}
+
+[data-theme="dark"] .custom-datetime-trigger:hover,
+[data-theme="dark"] .custom-datetime.open .custom-datetime-trigger {
+  border-color: #19c8b9;
+}
+
+[data-theme="dark"] .custom-datetime-panel {
+  background: #2a2218;
+  border-color: #4a3d2e;
+}
+
+[data-theme="dark"] .custom-datetime-field label {
+  color: #a09880;
+}
+
+[data-theme="dark"] .custom-datetime-field input {
+  background: #1f1a12;
+  border-color: #5a4d3a;
+  color: #e0d6c8;
+}
+
+[data-theme="dark"] .custom-datetime-field input:focus {
+  border-color: #19c8b9;
+}
+
+/* 夜间模式 time-spinner */
+[data-theme="dark"] .time-spinner input {
+  background: #1f1a12;
+  border-color: #5a4d3a;
+  color: #e0d6c8;
+}
+
+[data-theme="dark"] .time-spinner input:focus {
+  border-color: #19c8b9;
+}
+
+[data-theme="dark"] .time-spinner-btn {
+  background: #3d3226;
+  border-color: #5a4d3a;
+  color: #d4c9b4;
+}
+
+[data-theme="dark"] .time-spinner-btn:hover {
+  background: #19c8b9;
+  border-color: #19c8b9;
+  color: #fff;
+}
+
+[data-theme="dark"] .time-separator {
+  color: #a09880;
+}
+
+[data-theme="dark"] .custom-datetime-time-field label {
+  color: #a09880;
+}

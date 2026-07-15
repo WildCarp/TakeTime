@@ -1,0 +1,162 @@
+.floating-ball {
+  position: fixed;
+  width: 56px;
+  height: 56px;
+  z-index: 1500;
+}
+
+/* hover 时扩大容器覆盖子球区域 */
+.floating-ball.expand-up:hover {
+  height: 230px;
+  margin-top: -174px;
+}
+
+.floating-ball.expand-down:hover {
+  height: 230px;
+}
+
+.floating-ball-main {
+  position: absolute;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #19c8b9;
+  box-shadow: 0 4px 0 0 #11a89b, 0 6px 20px rgba(26, 200, 185, 0.35);
+  cursor: grab;
+  transition: box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 24px;
+  user-select: none;
+  z-index: 10;
+  touch-action: none;
+}
+
+/* expand-up: 主球在底部 */
+.floating-ball.expand-up .floating-ball-main {
+  bottom: 0;
+  left: 0;
+}
+
+/* expand-down: 主球在顶部 */
+.floating-ball.expand-down .floating-ball-main {
+  top: 0;
+  left: 0;
+}
+
+.floating-ball-main:hover {
+  box-shadow: 0 6px 0 0 #11a89b, 0 8px 24px rgba(26, 200, 185, 0.4);
+}
+
+.floating-ball-main:active {
+  cursor: grabbing;
+  box-shadow: 0 1px 0 0 #11a89b, 0 2px 8px rgba(26, 200, 185, 0.3);
+}
+
+.floating-ball-icon {
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.floating-ball:hover .floating-ball-icon {
+  transform: rotate(45deg);
+}
+
+/* 子球 - 绝对定位，hover 触发 */
+.floating-ball-child {
+  position: absolute;
+  left: 6px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  user-select: none;
+  pointer-events: none;
+  color: #fff;
+  background: #19c8b9;
+  box-shadow: 0 3px 0 0 #11a89b, 0 4px 12px rgba(26, 200, 185, 0.3);
+}
+
+/* expand-up: 子球在主球上方 */
+.floating-ball.expand-up .floating-ball-child.add {
+  bottom: 64px;
+}
+.floating-ball.expand-up .floating-ball-child.locate {
+  bottom: 118px;
+}
+.floating-ball.expand-up .floating-ball-child.theme {
+  bottom: 172px;
+}
+
+/* expand-down: 子球在主球下方 */
+.floating-ball.expand-down .floating-ball-child.add {
+  top: 64px;
+}
+.floating-ball.expand-down .floating-ball-child.locate {
+  top: 118px;
+}
+.floating-ball.expand-down .floating-ball-child.theme {
+  top: 172px;
+}
+
+/* hover 主容器时展开所有子球 */
+.floating-ball:hover .floating-ball-child {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+/* 子球依次延迟出现 */
+.floating-ball:hover .floating-ball-child.add {
+  transition-delay: 0s;
+}
+.floating-ball:hover .floating-ball-child.locate {
+  transition-delay: 0.05s;
+}
+.floating-ball:hover .floating-ball-child.theme {
+  transition-delay: 0.1s;
+}
+
+.floating-ball-child:hover {
+  transform: scale(1.15);
+  background: #15b5a7;
+}
+
+.floating-ball-child:active {
+  transform: scale(0.95);
+}
+
+/* 子球内纯色图标 */
+.floating-ball-child-icon {
+  font-style: normal;
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* 夜间模式 */
+[data-theme="dark"] .floating-ball-main {
+  background: #14a89b;
+  box-shadow: 0 4px 0 0 #0e8a7f, 0 6px 20px rgba(20, 168, 155, 0.3);
+}
+
+[data-theme="dark"] .floating-ball-main:hover {
+  box-shadow: 0 6px 0 0 #0e8a7f, 0 8px 24px rgba(20, 168, 155, 0.35);
+}
+
+[data-theme="dark"] .floating-ball-child {
+  background: #14a89b;
+  box-shadow: 0 3px 0 0 #0e8a7f, 0 4px 12px rgba(20, 168, 155, 0.25);
+}
+
+[data-theme="dark"] .floating-ball-child:hover {
+  background: #119085;
+}

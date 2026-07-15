@@ -1,0 +1,250 @@
+.calendar-container {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: #faf6ee;
+  font-family: Nunito, 'Noto Sans SC', sans-serif;
+  min-height: 0;
+}
+
+/* 横轴时间标签 */
+.time-axis {
+  position: absolute;
+  top: 0;
+  left: 80px;
+  right: 0;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  z-index: 100;
+  background: #faf6ee;
+  border-bottom: 1px solid rgba(114, 93, 66, 0.12);
+  overflow: hidden;
+}
+
+.time-label {
+  position: absolute;
+  font-size: 12px;
+  font-weight: 700;
+  color: #9f927d;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+
+/* 竖轴日期标签 */
+.date-axis {
+  position: absolute;
+  left: 0;
+  top: 36px;
+  bottom: 0;
+  width: 80px;
+  z-index: 100;
+  background: #faf6ee;
+  border-right: 1px solid rgba(114, 93, 66, 0.12);
+  overflow: hidden;
+}
+
+.date-label {
+  position: absolute;
+  left: 0;
+  width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #9f927d;
+  letter-spacing: 0.01em;
+}
+
+.date-label.today {
+  color: #19c8b9;
+  font-weight: 800;
+}
+
+/* 网格区域 */
+.grid-area {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  width: calc(100% - 80px);
+  height: calc(100% - 36px);
+}
+
+/* 网格线 */
+.grid-line {
+  position: absolute;
+  background: rgba(114, 93, 66, 0.08);
+}
+
+.grid-line.vertical {
+  width: 1px;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+}
+
+.grid-line.vertical.hour-line {
+  background: rgba(114, 93, 66, 0.12);
+}
+
+.grid-line.horizontal {
+  height: 1px;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+
+/* 当天行背景色区分 */
+.today-row-bg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background: rgba(25, 200, 185, 0.04);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 时间轴小刻度线 */
+.time-tick {
+  position: absolute;
+  bottom: 0;
+  width: 1px;
+  background: rgba(114, 93, 66, 0.2);
+  transform: translateX(-0.5px);
+}
+
+.time-tick.major {
+  height: 10px;
+}
+
+.time-tick.minor {
+  height: 6px;
+  background: rgba(114, 93, 66, 0.25);
+}
+
+/* 夜间模式 */
+[data-theme="dark"] .calendar-container {
+  background: #1f1a12;
+}
+
+[data-theme="dark"] .time-axis {
+  background: #1f1a12;
+  border-bottom-color: rgba(196, 184, 158, 0.12);
+}
+
+[data-theme="dark"] .date-axis {
+  background: #1f1a12;
+  border-right-color: rgba(196, 184, 158, 0.12);
+}
+
+[data-theme="dark"] .time-label,
+[data-theme="dark"] .date-label {
+  color: #a09880;
+}
+
+[data-theme="dark"] .date-label.today {
+  color: #19c8b9;
+}
+
+[data-theme="dark"] .grid-line {
+  background: rgba(196, 184, 158, 0.06);
+}
+
+[data-theme="dark"] .grid-line.vertical.hour-line {
+  background: rgba(196, 184, 158, 0.1);
+}
+
+[data-theme="dark"] .today-row-bg {
+  background: rgba(25, 200, 185, 0.06);
+}
+
+[data-theme="dark"] .time-tick {
+  background: rgba(196, 184, 158, 0.2);
+}
+
+[data-theme="dark"] .time-tick.minor {
+  background: rgba(196, 184, 158, 0.2);
+}
+
+/* "现在"时间指示线 */
+.now-indicator {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  z-index: 55;
+  pointer-events: none;
+}
+
+.now-indicator-line {
+  position: absolute;
+  left: 0;
+  width: 2px;
+  background: #19c8b9;
+  border-radius: 1px;
+  opacity: 0.85;
+  box-shadow: 0 0 6px rgba(25, 200, 185, 0.4);
+}
+
+.now-indicator-bubble {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #19c8b9;
+  color: #fff;
+  border-radius: 8px;
+  padding: 3px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.3;
+  white-space: nowrap;
+  box-shadow: 0 2px 10px rgba(25, 200, 185, 0.4), 0 1px 3px rgba(0, 0, 0, 0.1);
+  z-index: 56;
+}
+
+/* 气泡下方小三角 */
+.now-indicator-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #19c8b9;
+}
+
+.now-indicator-label {
+  font-size: 9px;
+  opacity: 0.9;
+}
+
+.now-indicator-time {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+/* 夜间模式 */
+[data-theme="dark"] .now-indicator-line {
+  background: #14a89b;
+  box-shadow: 0 0 6px rgba(20, 168, 155, 0.4);
+}
+
+[data-theme="dark"] .now-indicator-bubble {
+  background: #14a89b;
+  box-shadow: 0 2px 10px rgba(20, 168, 155, 0.4), 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .now-indicator-bubble::after {
+  border-top-color: #14a89b;
+}

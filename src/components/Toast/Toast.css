@@ -1,0 +1,57 @@
+.toast-container {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.toast-item {
+  padding: 10px 24px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: Nunito, 'Noto Sans SC', sans-serif;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  animation: toastIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: auto;
+  white-space: nowrap;
+}
+
+.toast-success {
+  background: #19c8b9;
+  color: #fff;
+}
+
+.toast-info {
+  background: #4DABF7;
+  color: #fff;
+}
+
+.toast-error {
+  background: #e05a5a;
+  color: #fff;
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 夜间模式 */
+[data-theme="dark"] .toast-success {
+  background: #14a89b;
+}
+
+[data-theme="dark"] .toast-info {
+  background: #5c6aa5;
+}
+
+[data-theme="dark"] .toast-error {
+  background: #993838;
+}
