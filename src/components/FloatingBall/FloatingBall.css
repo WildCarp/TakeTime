@@ -163,19 +163,19 @@
 
 /* 夜间模式 */
 [data-theme="dark"] .floating-ball-main {
-  background: #14a89b;
-  box-shadow: 0 4px 0 0 #0e8a7f, 0 6px 20px rgba(20, 168, 155, 0.3);
+  background: #11948a;
+  box-shadow: 0 4px 0 0 #0b7a70, 0 6px 20px rgba(20, 168, 155, 0.3);
 }
 
 [data-theme="dark"] .floating-ball-main:hover {
-  box-shadow: 0 6px 0 0 #0e8a7f, 0 8px 24px rgba(20, 168, 155, 0.35);
+  box-shadow: 0 6px 0 0 #0b7a70, 0 8px 24px rgba(20, 168, 155, 0.35);
 }
 
 [data-theme="dark"] .floating-ball-child {
-  background: #14a89b;
-  box-shadow: 0 3px 0 0 #0e8a7f, 0 4px 12px rgba(20, 168, 155, 0.25);
+  background: #11948a;
+  box-shadow: 0 3px 0 0 #0b7a70, 0 4px 12px rgba(20, 168, 155, 0.25);
 }
 
 [data-theme="dark"] .floating-ball-child:hover {
-  background: #119085;
+  background: #0e7d73;
 }

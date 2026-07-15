@@ -122,12 +122,12 @@
 }
 
 [data-theme="dark"] .drawer-close {
-  background: #14a89b;
-  box-shadow: 0 2px 0 0 #0e8a7f;
+  background: #11948a;
+  box-shadow: 0 2px 0 0 #0b7a70;
 }
 
 [data-theme="dark"] .drawer-close:hover {
-  background: #119085;
+  background: #0e7d73;
 }
 
 /* Tauri 环境：面板不覆盖顶栏 */

@@ -196,14 +196,13 @@ export default function TodayView({ theme, onExitFloating }: TodayViewProps) {
   const handleTaskPointerDown = useCallback((e: React.PointerEvent, taskId: string, startHour: number, endHour: number) => {
     if (e.button !== 0) return; // 只响应左键
     e.stopPropagation();
-    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
-    const relX = e.clientX - rect.left;
-    const taskWidth = rect.width;
 
-    // 判断拖拽类型：左边缘 resize-left，右边缘 resize-right，中间 move
+    // 判断拖拽类型：通过 handle class 或边缘位置
     let type: 'move' | 'resize-left' | 'resize-right' = 'move';
-    if (relX < 8) type = 'resize-left';
-    else if (relX > taskWidth - 8) type = 'resize-right';
+    const target = e.target as HTMLElement;
+    if (target.classList.contains('today-view-resize-handle')) {
+      type = target.classList.contains('left') ? 'resize-left' : 'resize-right';
+    }
 
     setTaskDrag({ taskId, type, startX: e.clientX, origStartHour: startHour, origEndHour: endHour });
     (timelineRef.current as HTMLElement)?.setPointerCapture(e.pointerId);
@@ -270,7 +269,7 @@ export default function TodayView({ theme, onExitFloating }: TodayViewProps) {
 
       {/* 时间轴 */}
       <div
-        className={`today-view-timeline ${dragging ? 'dragging' : ''} ${taskDrag ? 'task-dragging' : ''}`}
+        className={`today-view-timeline ${dragging ? 'dragging' : ''} ${taskDrag ? (taskDrag.type === 'move' ? 'task-dragging' : 'task-resizing') : ''}`}
         ref={timelineRef}
         onWheel={handleWheel}
         onPointerDown={handlePointerDown}
@@ -310,9 +309,19 @@ export default function TodayView({ theme, onExitFloating }: TodayViewProps) {
 
               onPointerDown={(e) => handleTaskPointerDown(e, task.id, task.startHour, task.endHour)}
             >
+              {/* 左侧拉伸手柄 */}
+              <div
+                className="today-view-resize-handle left"
+                onPointerDown={(e) => { e.stopPropagation(); handleTaskPointerDown(e, task.id, task.startHour, task.endHour); }}
+              />
               <span className={`today-view-task-name ${task.completed ? 'strikethrough' : ''}`}>
                 {task.emoji} {task.name}
               </span>
+              {/* 右侧拉伸手柄 */}
+              <div
+                className="today-view-resize-handle right"
+                onPointerDown={(e) => { e.stopPropagation(); handleTaskPointerDown(e, task.id, task.startHour, task.endHour); }}
+              />
               <div
                 className={`today-view-checkbox ${task.completed ? 'checked' : ''}`}
                 onPointerDown={(e) => e.stopPropagation()}

@@ -274,15 +274,15 @@
 
 /* 夜间模式 */
 [data-theme="dark"] .now-indicator-line {
-  background: #14a89b;
+  background: #11948a;
   box-shadow: 0 0 6px rgba(20, 168, 155, 0.4);
 }
 
 [data-theme="dark"] .now-indicator-bubble {
-  background: #14a89b;
+  background: #11948a;
   box-shadow: 0 2px 10px rgba(20, 168, 155, 0.4), 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 [data-theme="dark"] .now-indicator-bubble::after {
-  border-top-color: #14a89b;
+  border-top-color: #11948a;
 }

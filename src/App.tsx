@@ -22,7 +22,7 @@ function AppContent() {
   const { viewState, zoomTimeAxis, zoomDateAxis, panView, goToToday } = useCalendarZoom();
 
   // UI 状态
-  const [sidebarVisible, setSidebarVisible] = useState(true);
+  const [sidebarVisible, setSidebarVisible] = useState(false);
   const [taskModalOpen, setTaskModalOpen] = useState(false);
   const [tagGroupModalOpen, setTagGroupModalOpen] = useState(false);
   const [editingTagGroup, setEditingTagGroup] = useState<TagGroup | null>(null);

@@ -114,13 +114,13 @@
 }
 
 [data-theme="dark"] .confirm-btn.ok {
-  background: #14a89b;
+  background: #11948a;
   color: #fff;
-  box-shadow: 0 3px 0 0 #0e8a7f;
+  box-shadow: 0 3px 0 0 #0b7a70;
 }
 
 [data-theme="dark"] .confirm-btn.ok:hover {
   background: #1abfb0;
   color: #fff;
-  box-shadow: 0 4px 0 0 #0e8a7f;
+  box-shadow: 0 4px 0 0 #0b7a70;
 }

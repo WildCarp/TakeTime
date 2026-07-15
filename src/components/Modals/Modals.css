@@ -438,34 +438,34 @@
 }
 
 [data-theme="dark"] .toggle-switch input:checked + .toggle-slider {
-  background: #14a89b;
+  background: #11948a;
 }
 
 /* 夜间模式按钮颜色变暗 */
 [data-theme="dark"] .btn-primary {
-  background: #14a89b;
-  box-shadow: 0 3px 0 0 #0e8a7f;
+  background: #11948a;
+  box-shadow: 0 3px 0 0 #0b7a70;
 }
 
 [data-theme="dark"] .btn-primary:hover {
-  box-shadow: 0 4px 0 0 #0e8a7f;
+  box-shadow: 0 4px 0 0 #0b7a70;
 }
 
 [data-theme="dark"] .btn-primary:active {
-  box-shadow: 0 1px 0 0 #0e8a7f;
+  box-shadow: 0 1px 0 0 #0b7a70;
 }
 
 [data-theme="dark"] .btn-default {
-  background: #14a89b;
-  box-shadow: 0 3px 0 0 #0e8a7f;
+  background: #11948a;
+  box-shadow: 0 3px 0 0 #0b7a70;
 }
 
 [data-theme="dark"] .btn-default:hover {
-  box-shadow: 0 4px 0 0 #0e8a7f;
+  box-shadow: 0 4px 0 0 #0b7a70;
 }
 
 [data-theme="dark"] .btn-default:active {
-  box-shadow: 0 1px 0 0 #0e8a7f;
+  box-shadow: 0 1px 0 0 #0b7a70;
 }
 
 [data-theme="dark"] .btn-danger {
@@ -482,10 +482,10 @@
 }
 
 [data-theme="dark"] .modal-close {
-  background: #14a89b;
-  box-shadow: 0 2px 0 0 #0e8a7f;
+  background: #11948a;
+  box-shadow: 0 2px 0 0 #0b7a70;
 }
 
 [data-theme="dark"] .modal-close:hover {
-  background: #119085;
+  background: #0e7d73;
 }
