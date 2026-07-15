@@ -56,6 +56,7 @@ body {
 /* Tauri 环境：窗口圆角（非全屏） */
 .app-container.is-tauri {
   border-radius: 12px;
+  overflow: hidden;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(114, 93, 66, 0.06);
 }
 

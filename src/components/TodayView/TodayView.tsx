@@ -2,6 +2,7 @@ import { useState, useMemo, useCallback, useRef, useEffect } from 'react';
 import { useData } from '../../stores/dataStore';
 import { parseDateTime, getDateString } from '../../utils/timeUtils';
 import { TASK_BLOCK_COLORS, TASK_BLOCK_COLORS_DARK } from '../../constants';
+import { playCompleteSound } from '../../utils/sound';
 import './TodayView.css';
 
 interface TodayViewProps {
@@ -10,7 +11,7 @@ interface TodayViewProps {
 }
 
 export default function TodayView({ theme, onExitFloating }: TodayViewProps) {
-  const { data, getTagGroup, toggleTaskComplete } = useData();
+  const { data, getTagGroup, toggleTaskComplete, updateTask } = useData();
   const colors = theme === 'dark' ? TASK_BLOCK_COLORS_DARK : TASK_BLOCK_COLORS;
 
   const todayStr = getDateString(new Date());
@@ -32,10 +33,19 @@ export default function TodayView({ theme, onExitFloating }: TodayViewProps) {
   });
   const timeRange = timeEnd - timeStart;
 
-  // 拖拽平移状态
+  // 右键拖拽平移状态
   const [dragging, setDragging] = useState(false);
   const dragRef = useRef({ startX: 0, startTimeStart: 0, startTimeEnd: 0 });
   const timelineRef = useRef<HTMLDivElement>(null);
+
+  // 左键拖拽拉伸任务状态
+  const [taskDrag, setTaskDrag] = useState<{
+    taskId: string;
+    type: 'move' | 'resize-left' | 'resize-right';
+    startX: number;
+    origStartHour: number;
+    origEndHour: number;
+  } | null>(null);
 
   // 完成动画状态
   const [animatingTaskIds, setAnimatingTaskIds] = useState<Set<string>>(new Set());
@@ -54,10 +64,11 @@ export default function TodayView({ theme, onExitFloating }: TodayViewProps) {
     };
   }, []);
 
-  // 处理勾选完成
+  // 处理勾选完成（带音效）
   const handleCheckboxClick = useCallback((taskId: string, completed: boolean) => {
     if (!completed) {
-      // 触发完成动画
+      // 触发完成动画和音效
+      playCompleteSound();
       setAnimatingTaskIds((prev) => new Set(prev).add(taskId));
       setTimeout(() => {
         setAnimatingTaskIds((prev) => {
@@ -94,36 +105,102 @@ export default function TodayView({ theme, onExitFloating }: TodayViewProps) {
     setTimeEnd(newEnd);
   }, [timeStart, timeEnd]);
 
-  // 拖拽平移
+  // 右键拖拽平移
   const handlePointerDown = useCallback((e: React.PointerEvent) => {
-    if ((e.target as HTMLElement).closest('.today-view-task')) return;
+    // 只响应右键（button === 2）进行平移
+    if (e.button !== 2) return;
+    e.preventDefault();
     setDragging(true);
     dragRef.current = { startX: e.clientX, startTimeStart: timeStart, startTimeEnd: timeEnd };
     (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
   }, [timeStart, timeEnd]);
 
   const handlePointerMove = useCallback((e: React.PointerEvent) => {
-    if (!dragging) return;
-    const rect = timelineRef.current?.getBoundingClientRect();
-    if (!rect) return;
+    // 右键平移
+    if (dragging) {
+      const rect = timelineRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      const dx = e.clientX - dragRef.current.startX;
+      const hoursPerPixel = (dragRef.current.startTimeEnd - dragRef.current.startTimeStart) / rect.width;
+      const deltaHours = -dx * hoursPerPixel;
+      let newStart = dragRef.current.startTimeStart + deltaHours;
+      let newEnd = dragRef.current.startTimeEnd + deltaHours;
+      if (newStart < 0) { newEnd -= newStart; newStart = 0; }
+      if (newEnd > 24) { newStart -= (newEnd - 24); newEnd = 24; }
+      setTimeStart(Math.max(0, newStart));
+      setTimeEnd(Math.min(24, newEnd));
+      return;
+    }
+    // 左键拖拽任务
+    if (taskDrag) {
+      const rect = timelineRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      const dx = e.clientX - taskDrag.startX;
+      const hoursPerPixel = timeRange / rect.width;
+      const deltaHours = dx * hoursPerPixel;
 
-    const dx = e.clientX - dragRef.current.startX;
-    const hoursPerPixel = (dragRef.current.startTimeEnd - dragRef.current.startTimeStart) / rect.width;
-    const deltaHours = -dx * hoursPerPixel;
+      const task = data.tasks.find((t) => t.id === taskDrag.taskId);
+      if (!task) return;
 
-    let newStart = dragRef.current.startTimeStart + deltaHours;
-    let newEnd = dragRef.current.startTimeEnd + deltaHours;
+      let newStartHour = taskDrag.origStartHour;
+      let newEndHour = taskDrag.origEndHour;
 
-    if (newStart < 0) { newEnd -= newStart; newStart = 0; }
-    if (newEnd > 24) { newStart -= (newEnd - 24); newEnd = 24; }
+      if (taskDrag.type === 'move') {
+        const duration = taskDrag.origEndHour - taskDrag.origStartHour;
+        newStartHour = Math.max(0, Math.min(24 - duration, taskDrag.origStartHour + deltaHours));
+        newEndHour = newStartHour + duration;
+      } else if (taskDrag.type === 'resize-left') {
+        newStartHour = Math.max(0, Math.min(taskDrag.origEndHour - 0.25, taskDrag.origStartHour + deltaHours));
+      } else if (taskDrag.type === 'resize-right') {
+        newEndHour = Math.max(taskDrag.origStartHour + 0.25, Math.min(24, taskDrag.origEndHour + deltaHours));
+      }
 
-    setTimeStart(Math.max(0, newStart));
-    setTimeEnd(Math.min(24, newEnd));
-  }, [dragging]);
+      // 吸附到 15 分钟
+      newStartHour = Math.round(newStartHour * 4) / 4;
+      newEndHour = Math.round(newEndHour * 4) / 4;
+
+      // 构建新的时间字符串
+      const datePart = task.startTime.split(' ')[0];
+      const newStartTime = `${datePart} ${String(Math.floor(newStartHour)).padStart(2, '0')}:${String(Math.round((newStartHour % 1) * 60)).padStart(2, '0')}`;
+      const newEndTime = `${datePart} ${String(Math.floor(newEndHour)).padStart(2, '0')}:${String(Math.round((newEndHour % 1) * 60)).padStart(2, '0')}`;
+
+      updateTask(task.id, {
+        startTime: newStartTime,
+        endTime: newEndTime,
+      });
+    }
+  }, [dragging, taskDrag, timeRange, data.tasks, updateTask]);
 
   const handlePointerUp = useCallback((e: React.PointerEvent) => {
-    setDragging(false);
-    (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
+    if (dragging) {
+      setDragging(false);
+      (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
+    }
+    if (taskDrag) {
+      setTaskDrag(null);
+    }
+  }, [dragging, taskDrag]);
+
+  // 禁止右键菜单
+  const handleContextMenu = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+  }, []);
+
+  // 任务条左键拖拽开始
+  const handleTaskPointerDown = useCallback((e: React.PointerEvent, taskId: string, startHour: number, endHour: number) => {
+    if (e.button !== 0) return; // 只响应左键
+    e.stopPropagation();
+    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+    const relX = e.clientX - rect.left;
+    const taskWidth = rect.width;
+
+    // 判断拖拽类型：左边缘 resize-left，右边缘 resize-right，中间 move
+    let type: 'move' | 'resize-left' | 'resize-right' = 'move';
+    if (relX < 8) type = 'resize-left';
+    else if (relX > taskWidth - 8) type = 'resize-right';
+
+    setTaskDrag({ taskId, type, startX: e.clientX, origStartHour: startHour, origEndHour: endHour });
+    (timelineRef.current as HTMLElement)?.setPointerCapture(e.pointerId);
   }, []);
 
   // 获取今天的任务（包括已完成的，用于动画）
@@ -187,12 +264,13 @@ export default function TodayView({ theme, onExitFloating }: TodayViewProps) {
 
       {/* 时间轴 */}
       <div
-        className={`today-view-timeline ${dragging ? 'dragging' : ''}`}
+        className={`today-view-timeline ${dragging ? 'dragging' : ''} ${taskDrag ? 'task-dragging' : ''}`}
         ref={timelineRef}
         onWheel={handleWheel}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
+        onContextMenu={handleContextMenu}
       >
         {/* 时间刻度 */}
         {ticks.map((hour) => (
@@ -224,6 +302,7 @@ export default function TodayView({ theme, onExitFloating }: TodayViewProps) {
                 color: task.textColor,
               }}
               title={`${task.emoji} ${task.name}`}
+              onPointerDown={(e) => handleTaskPointerDown(e, task.id, task.startHour, task.endHour)}
             >
               <span className={`today-view-task-name ${task.completed ? 'strikethrough' : ''}`}>
                 {task.emoji} {task.name}
