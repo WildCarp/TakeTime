@@ -3,6 +3,7 @@ import { useData } from '../../stores/dataStore';
 import { Task } from '../../types';
 import { checkOverlap } from '../../utils/overlapCheck';
 import { showToast } from '../Toast/Toast';
+import { showConfirm } from '../Toast/ConfirmDialog';
 import CustomSelect from '../Modals/CustomSelect';
 import CustomDateTime from '../Modals/CustomDateTime';
 import '../Modals/Modals.css';
@@ -81,11 +82,14 @@ export default function TaskDetailPanel({ open, task, onClose }: TaskDetailPanel
     showToast('任务修改成功');
   };
 
-  const handleDelete = () => {
-    if (task && confirm('确定删除此任务？')) {
-      deleteTask(task.id);
-      onClose();
-      showToast('任务已删除', 'info');
+  const handleDelete = async () => {
+    if (task) {
+      const confirmed = await showConfirm('确定删除此任务？');
+      if (confirmed) {
+        deleteTask(task.id);
+        onClose();
+        showToast('任务已删除', 'info');
+      }
     }
   };
 

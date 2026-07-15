@@ -1,0 +1,118 @@
+.confirm-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: confirmFadeIn 0.2s ease;
+}
+
+@keyframes confirmFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.confirm-dialog {
+  background: rgb(247, 243, 223);
+  border-radius: 16px;
+  padding: 24px 28px;
+  min-width: 280px;
+  max-width: 360px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  animation: confirmSlideIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes confirmSlideIn {
+  from { transform: scale(0.9) translateY(-10px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.confirm-message {
+  font-size: 14px;
+  font-weight: 600;
+  color: #725d42;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  text-align: center;
+  font-family: Nunito, 'Noto Sans SC', sans-serif;
+}
+
+.confirm-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.confirm-btn {
+  padding: 8px 24px;
+  border-radius: 50px;
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: Nunito, 'Noto Sans SC', sans-serif;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.confirm-btn.cancel {
+  background: #e8dcc8;
+  color: #725d42;
+  box-shadow: 0 2px 0 0 #c4b89e;
+}
+
+.confirm-btn.cancel:hover {
+  background: #ddd0b8;
+}
+
+.confirm-btn.ok {
+  background: #19c8b9;
+  color: #fff;
+  box-shadow: 0 2px 0 0 #11a89b;
+}
+
+.confirm-btn.ok:hover {
+  background: #15b5a7;
+}
+
+.confirm-btn:active {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+/* 夜间模式 */
+[data-theme="dark"] .confirm-overlay {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .confirm-dialog {
+  background: #2a2218;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .confirm-message {
+  color: #e0d6c8;
+}
+
+[data-theme="dark"] .confirm-btn.cancel {
+  background: #3a3025;
+  color: #d4c9b4;
+  box-shadow: 0 2px 0 0 #2a2018;
+}
+
+[data-theme="dark"] .confirm-btn.cancel:hover {
+  background: #4a3d2e;
+}
+
+[data-theme="dark"] .confirm-btn.ok {
+  background: #14a89b;
+  box-shadow: 0 2px 0 0 #0e8a7f;
+}
+
+[data-theme="dark"] .confirm-btn.ok:hover {
+  background: #119085;
+}

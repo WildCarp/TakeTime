@@ -176,7 +176,7 @@ export default function Sidebar({
       {/* 侧边栏面板 */}
       <div className={`sidebar ${!visible ? 'hidden' : ''}`}>
         <div className="sidebar-header">
-          <button className="sidebar-toggle-btn" onClick={onToggle} data-tooltip="收起侧边栏">
+          <button className="sidebar-toggle-btn" onClick={onToggle}>
             ◀
           </button>
         </div>
@@ -223,7 +223,6 @@ export default function Sidebar({
                   <button
                     className={`tag-group-expand-btn ${isExpanded ? 'expanded' : ''}`}
                     onClick={() => toggleGroupExpand(group.id)}
-                    data-tooltip={isExpanded ? '收起' : '展开'}
                   >
                     ▶
                   </button>

@@ -6,6 +6,7 @@ import { CalendarViewState } from '../../hooks/useCalendarZoom';
 import { Task } from '../../types';
 import { parseDateTime, formatDateLabel, addDays, getDateString, getHourOffset } from '../../utils/timeUtils';
 import { checkOverlap } from '../../utils/overlapCheck';
+import { playCompleteSound } from '../../utils/completeSound';
 import { TASK_BLOCK_COLORS, TASK_BLOCK_COLORS_DARK } from '../../constants';
 import TaskBlock from './TaskBlock';
 import './Calendar.css';
@@ -45,6 +46,8 @@ export default function Calendar({ onTaskClick, viewState, zoomTimeAxis, zoomDat
           return next;
         });
       }, 800);
+      // 播放完成提示音
+      playCompleteSound();
     }
     toggleTaskComplete(taskId);
   }, [data.tasks, toggleTaskComplete]);

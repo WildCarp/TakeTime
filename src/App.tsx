@@ -9,6 +9,7 @@ import TaskModal from './components/Modals/TaskModal';
 import TagGroupModal from './components/Modals/TagGroupModal';
 import TaskDetailPanel from './components/TaskDetail/TaskDetailPanel';
 import Toast from './components/Toast/Toast';
+import ConfirmDialog from './components/Toast/ConfirmDialog';
 import { Task, TagGroup } from './types';
 import './App.css';
 
@@ -113,6 +114,9 @@ function AppContent() {
 
       {/* 全局消息提醒 */}
       <Toast />
+
+      {/* 全局确认对话框 */}
+      <ConfirmDialog />
     </div>
   );
 }

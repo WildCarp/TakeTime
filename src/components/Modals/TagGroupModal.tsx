@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useData } from '../../stores/dataStore';
 import { PRESET_COLORS, PRESET_COLORS_DARK, PRESET_EMOJIS, EMOJI_LABELS, DEFAULT_TAG_GROUP_ID } from '../../constants';
 import { showToast } from '../Toast/Toast';
+import { showConfirm } from '../Toast/ConfirmDialog';
 import { TagGroup } from '../../types';
 import './Modals.css';
 
@@ -60,9 +61,10 @@ export default function TagGroupModal({ open, editingGroup, onClose, theme }: Ta
     showToast(editingGroup ? '标签组已修改' : '标签组创建成功');
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (editingGroup && editingGroup.id !== DEFAULT_TAG_GROUP_ID) {
-      if (confirm('删除标签组后，其下任务将迁移到「默认」标签组。确定删除？')) {
+      const confirmed = await showConfirm('删除标签组后，其下任务将迁移到「默认」标签组。确定删除？');
+      if (confirmed) {
         deleteTagGroup(editingGroup.id);
         onClose();
         showToast('标签组已删除', 'info');
