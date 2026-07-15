@@ -66,6 +66,7 @@ export default function TaskBlock({
   }, [task, onDragStart]);
 
   const handlePointerUp = useCallback((e: React.PointerEvent) => {
+    if (e.button !== 0) return; // 只响应左键
     // 计算移动距离，小于 5px 视为简单点击
     const dx = e.clientX - pointerStart.current.x;
     const dy = e.clientY - pointerStart.current.y;

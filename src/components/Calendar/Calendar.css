@@ -152,7 +152,7 @@
 }
 
 [data-theme="dark"] .grid-line {
-  background: rgba(196, 184, 158, 0.03);
+  background: rgba(196, 184, 158, 0.02);
 }
 
 [data-theme="dark"] .grid-line.horizontal {
@@ -160,7 +160,7 @@
 }
 
 [data-theme="dark"] .grid-line.vertical.hour-line {
-  background: rgba(196, 184, 158, 0.05);
+  background: rgba(196, 184, 158, 0.03);
 }
 
 [data-theme="dark"] .today-row-bg {

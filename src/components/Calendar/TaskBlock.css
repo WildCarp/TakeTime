@@ -171,9 +171,9 @@
   transform: translate(-50%, -50%);
   font-size: 32px;
   font-weight: 900;
-  color: #4cd964;
+  color: #2db84d;
   animation: checkFloat 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  text-shadow: 0 2px 12px rgba(76, 217, 100, 0.7), 0 0 20px rgba(76, 217, 100, 0.4);
+  text-shadow: 0 2px 12px rgba(45, 184, 77, 0.8), 0 0 20px rgba(45, 184, 77, 0.5);
   pointer-events: none;
 }
 
