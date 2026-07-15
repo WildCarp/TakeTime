@@ -55,6 +55,23 @@ export default function Calendar({ onTaskClick, viewState, zoomTimeAxis, zoomDat
   // 动态获取容器尺寸
   const [containerSize, setContainerSize] = useState({ width: 900, height: 600 });
 
+  // 监听详情面板触发的完成动画事件
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const { taskId } = (e as CustomEvent).detail;
+      setAnimatingTaskIds((prev) => new Set(prev).add(taskId));
+      setTimeout(() => {
+        setAnimatingTaskIds((prev) => {
+          const next = new Set(prev);
+          next.delete(taskId);
+          return next;
+        });
+      }, 800);
+    };
+    window.addEventListener('task-complete-anim', handler);
+    return () => window.removeEventListener('task-complete-anim', handler);
+  }, []);
+
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
@@ -410,6 +427,16 @@ export default function Calendar({ onTaskClick, viewState, zoomTimeAxis, zoomDat
 
       {/* 网格线 */}
       <div className="grid-area">
+        {/* 小刻度竖线（更细更淡） */}
+        {timeTicks.map(({ x, isMajor }, i) => (
+          !isMajor ? (
+            <div
+              key={`tick-vline-${i}`}
+              className="grid-line vertical tick-line"
+              style={{ left: x }}
+            />
+          ) : null
+        ))}
         {/* 竖线（时间） */}
         {timeLabels.map(({ hour, x }) => (
           <div

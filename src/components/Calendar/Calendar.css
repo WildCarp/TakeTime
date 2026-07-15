@@ -90,6 +90,10 @@
   background: rgba(114, 93, 66, 0.05);
 }
 
+.grid-line.vertical.tick-line {
+  background: rgba(114, 93, 66, 0.025);
+}
+
 .grid-line.horizontal {
   height: 1px;
   left: 0;
@@ -161,6 +165,10 @@
 
 [data-theme="dark"] .grid-line.vertical.hour-line {
   background: rgba(196, 184, 158, 0.03);
+}
+
+[data-theme="dark"] .grid-line.vertical.tick-line {
+  background: rgba(196, 184, 158, 0.015);
 }
 
 [data-theme="dark"] .today-row-bg {

@@ -4,6 +4,7 @@ import { Task } from '../../types';
 import { checkOverlap } from '../../utils/overlapCheck';
 import { showToast } from '../Toast/Toast';
 import { showConfirm } from '../Toast/ConfirmDialog';
+import { playCompleteSound } from '../../utils/completeSound';
 import CustomSelect from '../Modals/CustomSelect';
 import CustomDateTime from '../Modals/CustomDateTime';
 import '../Modals/Modals.css';
@@ -95,8 +96,13 @@ export default function TaskDetailPanel({ open, task, onClose }: TaskDetailPanel
 
   const handleToggleComplete = () => {
     if (task) {
-      toggleTaskComplete(task.id);
       const isNowComplete = !currentTask.completed;
+      if (isNowComplete) {
+        playCompleteSound();
+        // 派发事件通知日程表播放动画
+        window.dispatchEvent(new CustomEvent('task-complete-anim', { detail: { taskId: task.id } }));
+      }
+      toggleTaskComplete(task.id);
       showToast(isNowComplete ? '任务已完成 🎉' : '任务已恢复', 'success');
     }
   };
