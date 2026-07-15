@@ -227,33 +227,33 @@
 .btn-primary {
   background: #19c8b9;
   color: #fff;
-  box-shadow: 0 5px 0 0 #11a89b;
+  box-shadow: 0 3px 0 0 #11a89b;
 }
 
 .btn-primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 0 0 #11a89b;
+  box-shadow: 0 4px 0 0 #11a89b;
 }
 
 .btn-primary:active {
-  transform: translateY(2px);
+  transform: translateY(1px);
   box-shadow: 0 1px 0 0 #11a89b;
 }
 
 .btn-default {
-  background: #5cc4bb;
+  background: #19c8b9;
   color: #fff;
-  box-shadow: 0 3px 0 0 #3da69e;
+  box-shadow: 0 3px 0 0 #11a89b;
 }
 
 .btn-default:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 0 0 #3da69e;
+  box-shadow: 0 4px 0 0 #11a89b;
 }
 
 .btn-default:active {
   transform: translateY(1px);
-  box-shadow: 0 1px 0 0 #3da69e;
+  box-shadow: 0 1px 0 0 #11a89b;
 }
 
 .btn-danger {
@@ -444,11 +444,11 @@
 /* 夜间模式按钮颜色变暗 */
 [data-theme="dark"] .btn-primary {
   background: #14a89b;
-  box-shadow: 0 5px 0 0 #0e8a7f;
+  box-shadow: 0 3px 0 0 #0e8a7f;
 }
 
 [data-theme="dark"] .btn-primary:hover {
-  box-shadow: 0 6px 0 0 #0e8a7f;
+  box-shadow: 0 4px 0 0 #0e8a7f;
 }
 
 [data-theme="dark"] .btn-primary:active {
@@ -456,16 +456,16 @@
 }
 
 [data-theme="dark"] .btn-default {
-  background: #3da69e;
-  box-shadow: 0 3px 0 0 #2d8880;
+  background: #14a89b;
+  box-shadow: 0 3px 0 0 #0e8a7f;
 }
 
 [data-theme="dark"] .btn-default:hover {
-  box-shadow: 0 4px 0 0 #2d8880;
+  box-shadow: 0 4px 0 0 #0e8a7f;
 }
 
 [data-theme="dark"] .btn-default:active {
-  box-shadow: 0 1px 0 0 #2d8880;
+  box-shadow: 0 1px 0 0 #0e8a7f;
 }
 
 [data-theme="dark"] .btn-danger {

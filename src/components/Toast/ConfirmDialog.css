@@ -49,39 +49,43 @@
 }
 
 .confirm-btn {
-  padding: 8px 24px;
+  padding: 10px 20px;
   border-radius: 50px;
   border: none;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   font-family: Nunito, 'Noto Sans SC', sans-serif;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .confirm-btn.cancel {
   background: #e8dcc8;
   color: #725d42;
-  box-shadow: 0 2px 0 0 #c4b89e;
+  box-shadow: 0 3px 0 0 #c4b89e;
 }
 
 .confirm-btn.cancel:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 0 0 #c4b89e;
   background: #ddd0b8;
 }
 
 .confirm-btn.ok {
   background: #19c8b9;
   color: #fff;
-  box-shadow: 0 2px 0 0 #11a89b;
+  box-shadow: 0 3px 0 0 #11a89b;
 }
 
 .confirm-btn.ok:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 0 0 #11a89b;
   background: #15b5a7;
 }
 
 .confirm-btn:active {
   transform: translateY(1px);
-  box-shadow: none;
+  box-shadow: 0 1px 0 0 currentColor;
 }
 
 /* 夜间模式 */
@@ -101,20 +105,22 @@
 [data-theme="dark"] .confirm-btn.cancel {
   background: #3a3025;
   color: #d4c9b4;
-  box-shadow: 0 2px 0 0 #1a1510;
+  box-shadow: 0 3px 0 0 #1a1510;
 }
 
 [data-theme="dark"] .confirm-btn.cancel:hover {
   background: #4d3f32;
+  box-shadow: 0 4px 0 0 #1a1510;
 }
 
 [data-theme="dark"] .confirm-btn.ok {
   background: #14a89b;
   color: #fff;
-  box-shadow: 0 2px 0 0 #0e8a7f;
+  box-shadow: 0 3px 0 0 #0e8a7f;
 }
 
 [data-theme="dark"] .confirm-btn.ok:hover {
   background: #1abfb0;
   color: #fff;
+  box-shadow: 0 4px 0 0 #0e8a7f;
 }
