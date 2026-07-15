@@ -44,10 +44,10 @@ export default function TodayView({ theme, onExitFloating }: TodayViewProps) {
   const dragRef = useRef({ startX: 0, startTimeStart: 0, startTimeEnd: 0 });
   const timelineRef = useRef<HTMLDivElement>(null);
 
-  // 左键拖拽拉伸任务状态
+  // 左键拖拽任务状态
   const [taskDrag, setTaskDrag] = useState<{
     taskId: string;
-    type: 'move' | 'resize-left' | 'resize-right';
+    type: 'move';
     startX: number;
     origStartHour: number;
     origEndHour: number;
@@ -151,15 +151,9 @@ export default function TodayView({ theme, onExitFloating }: TodayViewProps) {
       let newStartHour = taskDrag.origStartHour;
       let newEndHour = taskDrag.origEndHour;
 
-      if (taskDrag.type === 'move') {
-        const duration = taskDrag.origEndHour - taskDrag.origStartHour;
-        newStartHour = Math.max(0, Math.min(24 - duration, taskDrag.origStartHour + deltaHours));
-        newEndHour = newStartHour + duration;
-      } else if (taskDrag.type === 'resize-left') {
-        newStartHour = Math.max(0, Math.min(taskDrag.origEndHour - 0.25, taskDrag.origStartHour + deltaHours));
-      } else if (taskDrag.type === 'resize-right') {
-        newEndHour = Math.max(taskDrag.origStartHour + 0.25, Math.min(24, taskDrag.origEndHour + deltaHours));
-      }
+      const duration = taskDrag.origEndHour - taskDrag.origStartHour;
+      newStartHour = Math.max(0, Math.min(24 - duration, taskDrag.origStartHour + deltaHours));
+      newEndHour = newStartHour + duration;
 
       // 吸附到 15 分钟
       newStartHour = Math.round(newStartHour * 4) / 4;
@@ -196,15 +190,7 @@ export default function TodayView({ theme, onExitFloating }: TodayViewProps) {
   const handleTaskPointerDown = useCallback((e: React.PointerEvent, taskId: string, startHour: number, endHour: number) => {
     if (e.button !== 0) return; // 只响应左键
     e.stopPropagation();
-
-    // 判断拖拽类型：通过 handle class 或边缘位置
-    let type: 'move' | 'resize-left' | 'resize-right' = 'move';
-    const target = e.target as HTMLElement;
-    if (target.classList.contains('today-view-resize-handle')) {
-      type = target.classList.contains('left') ? 'resize-left' : 'resize-right';
-    }
-
-    setTaskDrag({ taskId, type, startX: e.clientX, origStartHour: startHour, origEndHour: endHour });
+    setTaskDrag({ taskId, type: 'move', startX: e.clientX, origStartHour: startHour, origEndHour: endHour });
     (timelineRef.current as HTMLElement)?.setPointerCapture(e.pointerId);
   }, []);
 
@@ -269,7 +255,7 @@ export default function TodayView({ theme, onExitFloating }: TodayViewProps) {
 
       {/* 时间轴 */}
       <div
-        className={`today-view-timeline ${dragging ? 'dragging' : ''} ${taskDrag ? (taskDrag.type === 'move' ? 'task-dragging' : 'task-resizing') : ''}`}
+        className={`today-view-timeline ${dragging ? 'dragging' : ''} ${taskDrag ? 'task-dragging' : ''}`}
         ref={timelineRef}
         onWheel={handleWheel}
         onPointerDown={handlePointerDown}
@@ -309,19 +295,9 @@ export default function TodayView({ theme, onExitFloating }: TodayViewProps) {
 
               onPointerDown={(e) => handleTaskPointerDown(e, task.id, task.startHour, task.endHour)}
             >
-              {/* 左侧拉伸手柄 */}
-              <div
-                className="today-view-resize-handle left"
-                onPointerDown={(e) => { e.stopPropagation(); handleTaskPointerDown(e, task.id, task.startHour, task.endHour); }}
-              />
               <span className={`today-view-task-name ${task.completed ? 'strikethrough' : ''}`}>
                 {task.emoji} {task.name}
               </span>
-              {/* 右侧拉伸手柄 */}
-              <div
-                className="today-view-resize-handle right"
-                onPointerDown={(e) => { e.stopPropagation(); handleTaskPointerDown(e, task.id, task.startHour, task.endHour); }}
-              />
               <div
                 className={`today-view-checkbox ${task.completed ? 'checked' : ''}`}
                 onPointerDown={(e) => e.stopPropagation()}
