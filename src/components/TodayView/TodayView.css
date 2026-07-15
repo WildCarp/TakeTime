@@ -32,6 +32,7 @@
   font-weight: 600;
 }
 
+/* 退出按钮：默认隐藏，聚焦时丝滑弹出 */
 .today-view-exit {
   margin-left: auto;
   width: 24px;
@@ -46,28 +47,31 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.15s ease;
   box-shadow: 0 2px 0 0 #c94444;
+  opacity: 0;
+  transform: scale(0.5);
+  pointer-events: none;
+  transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    background 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.today-view-exit.visible {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
 }
 
 .today-view-exit:hover {
   background: #d04a4a;
-  transform: translateY(-1px);
+  transform: scale(1.1);
   box-shadow: 0 3px 0 0 #c94444;
 }
 
 .today-view-exit:active {
-  transform: translateY(1px);
+  transform: scale(0.9);
   box-shadow: 0 0px 0 0 #c94444;
-}
-
-/* 退出按钮 tooltip 显示在左侧 */
-.today-view-exit[data-tooltip]::after {
-  bottom: auto;
-  left: auto;
-  right: calc(100% + 8px);
-  top: 50%;
-  transform: translateY(-50%);
 }
 
 /* 时间轴 */
@@ -119,12 +123,17 @@
   font-weight: 600;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   cursor: default;
-  transition: transform 0.15s ease;
+  transition: transform 0.15s ease, opacity 0.3s ease;
 }
 
 .today-view-task:hover {
   transform: translateY(-1px);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+/* 已完成任务变灰 */
+.today-view-task.completed {
+  opacity: 0.55;
 }
 
 .today-view-task-name {
@@ -133,22 +142,30 @@
   white-space: nowrap;
 }
 
-/* 任务完成勾选框（与正常模式一致） */
+.today-view-task-name.strikethrough {
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+/* 右上角勾选框（与正常模式一致） */
 .today-view-checkbox {
-  width: 16px;
-  height: 16px;
-  min-width: 16px;
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 14px;
+  height: 14px;
+  min-width: 14px;
   border-radius: 50%;
   border: 2px solid currentColor;
   background: rgba(0, 0, 0, 0.12);
   cursor: pointer;
-  margin-right: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 700;
   color: inherit;
+  z-index: 20;
   opacity: 0.7;
   transition: all 0.15s ease;
 }
@@ -162,6 +179,40 @@
   background: currentColor;
   border-color: currentColor;
   opacity: 1;
+}
+
+/* 完成动画 */
+.today-view-task.complete-anim {
+  animation: tvCompletePulse 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes tvCompletePulse {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.05); box-shadow: 0 0 0 4px rgba(76, 217, 100, 0.3); }
+  60% { transform: scale(0.98); box-shadow: 0 0 0 8px rgba(76, 217, 100, 0); }
+  100% { transform: scale(1); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08); }
+}
+
+/* 完成浮动 ✓ 动画 */
+.today-view-check-float {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.4);
+  font-size: 20px;
+  font-weight: 900;
+  color: #2db84d;
+  animation: tvCheckFloat 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  text-shadow: 0 2px 8px rgba(45, 184, 77, 0.8);
+  pointer-events: none;
+  z-index: 30;
+}
+
+@keyframes tvCheckFloat {
+  0% { opacity: 1; transform: translate(-50%, -50%) scale(0.4); }
+  25% { opacity: 1; transform: translate(-50%, -120%) scale(1.5); }
+  50% { opacity: 1; transform: translate(-50%, -160%) scale(1.2); }
+  100% { opacity: 0; transform: translate(-50%, -220%) scale(0.9); }
 }
 
 /* 当前时间指示线 */

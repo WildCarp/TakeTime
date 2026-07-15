@@ -83,14 +83,6 @@
   box-shadow: 0 0px 0 0 #c94444;
 }
 
-/* tooltip 位置 */
-.titlebar-btn[data-tooltip]::after {
-  bottom: auto;
-  top: calc(100% + 6px);
-  left: 50%;
-  transform: translateX(-50%);
-}
-
 /* 夜间模式 */
 [data-theme="dark"] .titlebar {
   background: #1a1510;

@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useRef } from 'react';
+import { useState, useMemo, useCallback, useRef, useEffect } from 'react';
 import { useData } from '../../stores/dataStore';
 import { parseDateTime, getDateString } from '../../utils/timeUtils';
 import { TASK_BLOCK_COLORS, TASK_BLOCK_COLORS_DARK } from '../../constants';
@@ -37,24 +37,54 @@ export default function TodayView({ theme, onExitFloating }: TodayViewProps) {
   const dragRef = useRef({ startX: 0, startTimeStart: 0, startTimeEnd: 0 });
   const timelineRef = useRef<HTMLDivElement>(null);
 
+  // 完成动画状态
+  const [animatingTaskIds, setAnimatingTaskIds] = useState<Set<string>>(new Set());
+
+  // 窗口聚焦状态（控制退出按钮显示）
+  const [focused, setFocused] = useState(true);
+
+  useEffect(() => {
+    const handleFocus = () => setFocused(true);
+    const handleBlur = () => setFocused(false);
+    window.addEventListener('focus', handleFocus);
+    window.addEventListener('blur', handleBlur);
+    return () => {
+      window.removeEventListener('focus', handleFocus);
+      window.removeEventListener('blur', handleBlur);
+    };
+  }, []);
+
+  // 处理勾选完成
+  const handleCheckboxClick = useCallback((taskId: string, completed: boolean) => {
+    if (!completed) {
+      // 触发完成动画
+      setAnimatingTaskIds((prev) => new Set(prev).add(taskId));
+      setTimeout(() => {
+        setAnimatingTaskIds((prev) => {
+          const next = new Set(prev);
+          next.delete(taskId);
+          return next;
+        });
+      }, 800);
+    }
+    toggleTaskComplete(taskId);
+  }, [toggleTaskComplete]);
+
   // 滚轮缩放
   const handleWheel = useCallback((e: React.WheelEvent) => {
     e.preventDefault();
     const rect = timelineRef.current?.getBoundingClientRect();
     if (!rect) return;
 
-    // 鼠标在时间轴中的比例位置
     const ratio = (e.clientX - rect.left) / rect.width;
     const currentRange = timeEnd - timeStart;
-    const zoomFactor = e.deltaY > 0 ? 1.15 : 0.87; // 缩小/放大
+    const zoomFactor = e.deltaY > 0 ? 1.15 : 0.87;
     const newRange = Math.max(2, Math.min(24, currentRange * zoomFactor));
 
-    // 以鼠标位置为中心缩放
     const pivot = timeStart + ratio * currentRange;
     let newStart = pivot - ratio * newRange;
     let newEnd = pivot + (1 - ratio) * newRange;
 
-    // 边界限制
     if (newStart < 0) { newEnd -= newStart; newStart = 0; }
     if (newEnd > 24) { newStart -= (newEnd - 24); newEnd = 24; }
     newStart = Math.max(0, newStart);
@@ -64,9 +94,8 @@ export default function TodayView({ theme, onExitFloating }: TodayViewProps) {
     setTimeEnd(newEnd);
   }, [timeStart, timeEnd]);
 
-  // 拖拽平移开始
+  // 拖拽平移
   const handlePointerDown = useCallback((e: React.PointerEvent) => {
-    // 只响应时间轴区域的拖拽，不影响任务条
     if ((e.target as HTMLElement).closest('.today-view-task')) return;
     setDragging(true);
     dragRef.current = { startX: e.clientX, startTimeStart: timeStart, startTimeEnd: timeEnd };
@@ -85,7 +114,6 @@ export default function TodayView({ theme, onExitFloating }: TodayViewProps) {
     let newStart = dragRef.current.startTimeStart + deltaHours;
     let newEnd = dragRef.current.startTimeEnd + deltaHours;
 
-    // 边界限制
     if (newStart < 0) { newEnd -= newStart; newStart = 0; }
     if (newEnd > 24) { newStart -= (newEnd - 24); newEnd = 24; }
 
@@ -98,14 +126,13 @@ export default function TodayView({ theme, onExitFloating }: TodayViewProps) {
     (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
   }, []);
 
-  // 获取今天的任务（包括周期性任务）
+  // 获取今天的任务（包括已完成的，用于动画）
   const todayTasks = useMemo(() => {
     const today = new Date();
     const todayDay = today.getDay();
 
     return data.tasks
       .filter((task) => {
-        if (task.completed) return false;
         if (task.isRecurring) {
           return task.weekdays?.includes(todayDay);
         }
@@ -132,7 +159,7 @@ export default function TodayView({ theme, onExitFloating }: TodayViewProps) {
       .sort((a, b) => a.startHour - b.startHour);
   }, [data.tasks, todayStr, colors, getTagGroup]);
 
-  // 计算时间刻度标签（根据缩放级别调整密度）
+  // 计算时间刻度标签
   const tickStep = timeRange <= 4 ? 0.5 : timeRange <= 8 ? 1 : timeRange <= 16 ? 2 : 3;
   const tickStart = Math.ceil(timeStart / tickStep) * tickStep;
   const ticks: number[] = [];
@@ -150,12 +177,15 @@ export default function TodayView({ theme, onExitFloating }: TodayViewProps) {
         <span className="today-view-date" data-tauri-drag-region>
           {todayStr.slice(5).replace('/', '月') + '日'}
         </span>
-        <button className="today-view-exit" onClick={onExitFloating} data-tooltip="退出悬浮">
+        <button
+          className={`today-view-exit ${focused ? 'visible' : ''}`}
+          onClick={onExitFloating}
+        >
           ✕
         </button>
       </div>
 
-      {/* 时间轴（支持缩放和平移） */}
+      {/* 时间轴 */}
       <div
         className={`today-view-timeline ${dragging ? 'dragging' : ''}`}
         ref={timelineRef}
@@ -181,28 +211,34 @@ export default function TodayView({ theme, onExitFloating }: TodayViewProps) {
         {todayTasks.map((task) => {
           const left = ((task.startHour - timeStart) / timeRange) * 100;
           const width = ((task.endHour - task.startHour) / timeRange) * 100;
-          // 只渲染可见范围内的任务
           if (left + width < 0 || left > 100) return null;
+          const isAnimating = animatingTaskIds.has(task.id);
           return (
             <div
               key={task.id}
-              className="today-view-task"
+              className={`today-view-task ${task.completed ? 'completed' : ''} ${isAnimating ? 'complete-anim' : ''}`}
               style={{
                 left: `${left}%`,
                 width: `${width}%`,
                 background: task.bgColor,
                 color: task.textColor,
               }}
-              title={`${task.emoji} ${task.name} (${Math.floor(task.startHour)}:${String(Math.round((task.startHour % 1) * 60)).padStart(2, '0')}-${Math.floor(task.endHour)}:${String(Math.round((task.endHour % 1) * 60)).padStart(2, '0')})`}
+              title={`${task.emoji} ${task.name}`}
             >
+              <span className={`today-view-task-name ${task.completed ? 'strikethrough' : ''}`}>
+                {task.emoji} {task.name}
+              </span>
               <div
-                className="today-view-checkbox"
+                className={`today-view-checkbox ${task.completed ? 'checked' : ''}`}
                 onPointerDown={(e) => e.stopPropagation()}
-                onClick={(e) => { e.stopPropagation(); toggleTaskComplete(task.id); }}
+                onClick={(e) => { e.stopPropagation(); handleCheckboxClick(task.id, task.completed); }}
               >
-                ✓
+                {task.completed && '✓'}
               </div>
-              <span className="today-view-task-name">{task.emoji} {task.name}</span>
+              {/* 完成动画浮层 */}
+              {isAnimating && (
+                <span className="today-view-check-float">✓</span>
+              )}
             </div>
           );
         })}
