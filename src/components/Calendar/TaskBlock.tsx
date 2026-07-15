@@ -144,10 +144,6 @@ export default function TaskBlock({
           onClick={handleCheckboxClick}
         >
           {task.completed && '✓'}
-          {/* 完成动画 - 绿色勾从勾选框上浮消失 */}
-          {showCompleteAnim && (
-            <span className="complete-check-float">✓</span>
-          )}
         </div>
       )}
 

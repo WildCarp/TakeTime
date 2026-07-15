@@ -454,6 +454,22 @@ export default function Calendar({ onTaskClick, viewState, zoomTimeAxis, zoomDat
             />
           ))}
 
+        {/* 完成动画浮层 - 在任务格之上独立渲染，不受任务格透明度影响 */}
+        {taskPositions
+          .filter((tp) => tp.isVisible && animatingTaskIds.has(tp.task.id))
+          .map((tp, index) => (
+            <div
+              key={`anim-${tp.task.id}-${index}`}
+              className="complete-check-overlay"
+              style={{
+                left: tp.x + Math.max(tp.width, 40) / 2,
+                top: tp.y + 2 + Math.max(tp.height, 24) / 2,
+              }}
+            >
+              <span className="complete-check-float">✓</span>
+            </div>
+          ))}
+
         {/* "现在"时间指示线 */}
         {(() => {
           const nowHour = nowTime.getHours() + nowTime.getMinutes() / 60;
