@@ -9,6 +9,7 @@ import TaskModal from './components/Modals/TaskModal';
 import TagGroupModal from './components/Modals/TagGroupModal';
 import TaskDetailPanel from './components/TaskDetail/TaskDetailPanel';
 import TodayView from './components/TodayView/TodayView';
+import Titlebar from './components/Titlebar/Titlebar';
 import Toast from './components/Toast/Toast';
 import ConfirmDialog from './components/Toast/ConfirmDialog';
 import { isTauri, enterFloatingMode, exitFloatingMode } from './utils/tauriWindow';
@@ -92,25 +93,31 @@ function AppContent() {
 
   return (
     <div className="app-container" data-theme={theme}>
-      {/* 侧边栏 */}
-      <Sidebar
-        visible={sidebarVisible}
-        onToggle={() => setSidebarVisible(!sidebarVisible)}
-        onEditTagGroup={handleEditTagGroup}
-        onAddTagGroup={handleAddTagGroup}
-        onTaskClick={handleTaskClick}
-        theme={theme}
-      />
+      {/* 自定义标题栏（仅 Tauri） */}
+      <Titlebar />
 
-      {/* 日程表主区域 */}
-      <Calendar
-        onTaskClick={handleTaskClick}
-        viewState={viewState}
-        zoomTimeAxis={zoomTimeAxis}
-        zoomDateAxis={zoomDateAxis}
-        panView={panView}
-        theme={theme}
-      />
+      {/* 主内容区 */}
+      <div className="app-main">
+        {/* 侧边栏 */}
+        <Sidebar
+          visible={sidebarVisible}
+          onToggle={() => setSidebarVisible(!sidebarVisible)}
+          onEditTagGroup={handleEditTagGroup}
+          onAddTagGroup={handleAddTagGroup}
+          onTaskClick={handleTaskClick}
+          theme={theme}
+        />
+
+        {/* 日程表主区域 */}
+        <Calendar
+          onTaskClick={handleTaskClick}
+          viewState={viewState}
+          zoomTimeAxis={zoomTimeAxis}
+          zoomDateAxis={zoomDateAxis}
+          panView={panView}
+          theme={theme}
+        />
+      </div>
 
       {/* 悬浮功能球 */}
       <FloatingBall

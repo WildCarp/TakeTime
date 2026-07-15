@@ -21,10 +21,17 @@ body {
 
 .app-container {
   display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
   background: #f8f4ea;
   transition: background 0.3s ease;
+}
+
+.app-main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
 }
 
 /* 悬浮模式 */
@@ -32,6 +39,9 @@ body {
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(114, 93, 66, 0.1);
+  margin: 6px;
+  width: calc(100% - 12px);
+  height: calc(100% - 12px);
 }
 
 [data-theme="dark"] .app-container.app-floating {
