@@ -18,7 +18,7 @@
   align-items: center;
   z-index: 100;
   background: #f8f4ea;
-  border-bottom: 2px solid rgba(114, 93, 66, 0.15);
+  border-bottom: 2px solid rgba(114, 93, 66, 0.22);
   overflow: hidden;
 }
 
@@ -41,7 +41,7 @@
   width: 80px;
   z-index: 100;
   background: #f8f4ea;
-  border-right: 2px solid rgba(114, 93, 66, 0.15);
+  border-right: 2px solid rgba(114, 93, 66, 0.22);
   overflow: hidden;
 }
 
@@ -104,7 +104,7 @@
 
 .grid-line.horizontal.week-boundary {
   height: 2px;
-  background: rgba(114, 93, 66, 0.25);
+  background: rgba(114, 93, 66, 0.22);
 }
 
 /* 当天行背景色区分 */
@@ -143,12 +143,12 @@
 
 [data-theme="dark"] .time-axis {
   background: #1f1a12;
-  border-bottom: 2px solid rgba(196, 184, 158, 0.15);
+  border-bottom: 2px solid rgba(196, 184, 158, 0.22);
 }
 
 [data-theme="dark"] .date-axis {
   background: #1f1a12;
-  border-right: 2px solid rgba(196, 184, 158, 0.15);
+  border-right: 2px solid rgba(196, 184, 158, 0.22);
 }
 
 [data-theme="dark"] .time-label,
@@ -170,7 +170,7 @@
 
 [data-theme="dark"] .grid-line.horizontal.week-boundary {
   height: 2px;
-  background: rgba(196, 184, 158, 0.20);
+  background: rgba(196, 184, 158, 0.18);
 }
 
 [data-theme="dark"] .grid-line.vertical.hour-line {
