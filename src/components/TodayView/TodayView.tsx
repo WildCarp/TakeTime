@@ -135,7 +135,7 @@ export default function TodayView({ theme, onExitFloating }: TodayViewProps) {
       {/* 顶部信息栏 */}
       <div className="today-view-header" data-tauri-drag-region>
         <span className="today-view-title" data-tauri-drag-region>
-          📅 今日日程
+          今日日程
         </span>
         <span className="today-view-date" data-tauri-drag-region>
           {todayStr.slice(5).replace('/', '月') + '日'}

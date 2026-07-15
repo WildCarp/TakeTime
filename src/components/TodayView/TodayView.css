@@ -131,12 +131,13 @@
 .today-view-now::before {
   content: '';
   position: absolute;
-  top: -3px;
-  left: -3px;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #19c8b9;
+  top: -6px;
+  left: -4px;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid #19c8b9;
 }
 
 /* 夜间模式 */
@@ -180,5 +181,5 @@
 }
 
 [data-theme="dark"] .today-view-now::before {
-  background: #14a89b;
+  border-top-color: #14a89b;
 }
