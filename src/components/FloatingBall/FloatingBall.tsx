@@ -21,6 +21,8 @@ export default function FloatingBall({
 
   // 判断主球在上半侧还是下半侧
   const isTopHalf = position.y < window.innerHeight / 2;
+  // 判断主球在左半侧还是右半侧
+  const isLeftHalf = position.x < window.innerWidth / 2;
 
   const handlePointerDown = useCallback((e: React.PointerEvent) => {
     e.preventDefault();
@@ -59,7 +61,7 @@ export default function FloatingBall({
 
   return (
     <div
-      className={`floating-ball ${isTopHalf ? 'expand-down' : 'expand-up'}`}
+      className={`floating-ball ${isTopHalf ? 'expand-down' : 'expand-up'} ${isLeftHalf ? 'tooltip-right' : ''}`}
       style={{ left: position.x, top: position.y }}
     >
       {/* 子球：新建任务（最近主球） */}

@@ -140,6 +140,13 @@ input, textarea, select {
   transform: translateY(-50%);
 }
 
+/* 悬浮球在左侧时，子球 tooltip 显示在右侧 */
+.floating-ball.tooltip-right .floating-ball-child[data-tooltip]::after {
+  right: auto;
+  left: calc(100% + 8px);
+  transform: translateY(-50%);
+}
+
 /* 左上角展开按钮 tooltip 显示在右侧 */
 .sidebar-toggle.collapsed[data-tooltip]::after {
   bottom: auto;
