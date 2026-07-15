@@ -15,6 +15,16 @@
   height: 230px;
 }
 
+/* Tauri 环境下有4个子球，需要更大的展开区域 */
+.floating-ball.has-float.expand-up:hover {
+  height: 284px;
+  margin-top: -228px;
+}
+
+.floating-ball.has-float.expand-down:hover {
+  height: 284px;
+}
+
 .floating-ball-main {
   position: absolute;
   width: 56px;
@@ -96,6 +106,9 @@
 .floating-ball.expand-up .floating-ball-child.theme {
   bottom: 172px;
 }
+.floating-ball.expand-up .floating-ball-child.float-mode {
+  bottom: 226px;
+}
 
 /* expand-down: 子球在主球下方 */
 .floating-ball.expand-down .floating-ball-child.add {
@@ -106,6 +119,9 @@
 }
 .floating-ball.expand-down .floating-ball-child.theme {
   top: 172px;
+}
+.floating-ball.expand-down .floating-ball-child.float-mode {
+  top: 226px;
 }
 
 /* hover 主容器时展开所有子球 */
@@ -124,6 +140,9 @@
 }
 .floating-ball:hover .floating-ball-child.theme {
   transition-delay: 0.1s;
+}
+.floating-ball:hover .floating-ball-child.float-mode {
+  transition-delay: 0.15s;
 }
 
 .floating-ball-child:hover {

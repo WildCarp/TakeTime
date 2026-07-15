@@ -5,6 +5,8 @@ interface FloatingBallProps {
   onAddTask: () => void;
   onLocateToday: () => void;
   onToggleTheme: () => void;
+  onToggleFloating?: () => void;
+  isTauriEnv?: boolean;
   theme: 'light' | 'dark';
 }
 
@@ -12,6 +14,8 @@ export default function FloatingBall({
   onAddTask,
   onLocateToday,
   onToggleTheme,
+  onToggleFloating,
+  isTauriEnv,
   theme,
 }: FloatingBallProps) {
   const [position, setPosition] = useState({ x: window.innerWidth - 88, y: window.innerHeight - 88 });
@@ -61,7 +65,7 @@ export default function FloatingBall({
 
   return (
     <div
-      className={`floating-ball ${isTopHalf ? 'expand-down' : 'expand-up'} ${isLeftHalf ? 'tooltip-right' : ''}`}
+      className={`floating-ball ${isTopHalf ? 'expand-down' : 'expand-up'} ${isLeftHalf ? 'tooltip-right' : ''} ${isTauriEnv ? 'has-float' : ''}`}
       style={{ left: position.x, top: position.y }}
     >
       {/* 子球：新建任务（最近主球） */}
@@ -82,7 +86,7 @@ export default function FloatingBall({
         <span className="floating-ball-child-icon">⊙</span>
       </div>
 
-      {/* 子球：切换主题（最远） */}
+      {/* 子球：切换主题 */}
       <div
         className="floating-ball-child theme"
         onClick={onToggleTheme}
@@ -90,6 +94,17 @@ export default function FloatingBall({
       >
         <span className="floating-ball-child-icon">{theme === 'light' ? '☽' : '☀'}</span>
       </div>
+
+      {/* 子球：悬浮模式（仅 Tauri 环境） */}
+      {isTauriEnv && (
+        <div
+          className="floating-ball-child float-mode"
+          onClick={onToggleFloating}
+          data-tooltip="悬浮模式"
+        >
+          <span className="floating-ball-child-icon">⬡</span>
+        </div>
+      )}
 
       {/* 主球 */}
       <div

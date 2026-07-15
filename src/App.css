@@ -27,6 +27,12 @@ body {
   transition: background 0.3s ease;
 }
 
+/* 悬浮模式 */
+.app-container.app-floating {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
 /* 夜间模式 */
 [data-theme="dark"] .app-container {
   background: #1f1a12;

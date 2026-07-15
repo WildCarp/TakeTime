@@ -10,6 +10,7 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@tauri-apps/api": "^1.6.0",
     "animal-island-ui": "^0.9.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

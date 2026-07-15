@@ -1,0 +1,177 @@
+.today-view {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #f8f4ea;
+  font-family: Nunito, 'Noto Sans SC', sans-serif;
+  overflow: hidden;
+  border-radius: 12px;
+  user-select: none;
+}
+
+.today-view-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-bottom: 1px solid rgba(114, 93, 66, 0.12);
+  cursor: grab;
+  flex-shrink: 0;
+}
+
+.today-view-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #725d42;
+}
+
+.today-view-date {
+  font-size: 12px;
+  color: #9f927d;
+  font-weight: 600;
+}
+
+.today-view-exit {
+  margin-left: auto;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(114, 93, 66, 0.08);
+  color: #9f927d;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.today-view-exit:hover {
+  background: #e05a5a;
+  color: #fff;
+}
+
+/* 时间轴 */
+.today-view-timeline {
+  flex: 1;
+  position: relative;
+  margin: 8px 14px 10px;
+  min-height: 40px;
+}
+
+/* 时间刻度 */
+.today-view-tick {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(114, 93, 66, 0.08);
+}
+
+.today-view-tick-label {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 9px;
+  color: #9f927d;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* 任务条 */
+.today-view-task {
+  position: absolute;
+  top: 16px;
+  height: calc(100% - 20px);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  padding: 0 6px;
+  overflow: hidden;
+  font-size: 11px;
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  cursor: default;
+  transition: transform 0.15s ease;
+}
+
+.today-view-task:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+.today-view-task-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 当前时间指示线 */
+.today-view-now {
+  position: absolute;
+  top: 12px;
+  bottom: 0;
+  width: 2px;
+  background: #19c8b9;
+  border-radius: 1px;
+  z-index: 10;
+  box-shadow: 0 0 4px rgba(25, 200, 185, 0.5);
+}
+
+.today-view-now::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #19c8b9;
+}
+
+/* 夜间模式 */
+[data-theme="dark"] .today-view {
+  background: #1f1a12;
+}
+
+[data-theme="dark"] .today-view-header {
+  border-bottom-color: rgba(196, 184, 158, 0.12);
+}
+
+[data-theme="dark"] .today-view-title {
+  color: #e0d6c8;
+}
+
+[data-theme="dark"] .today-view-date {
+  color: #a09880;
+}
+
+[data-theme="dark"] .today-view-exit {
+  background: rgba(196, 184, 158, 0.08);
+  color: #a09880;
+}
+
+[data-theme="dark"] .today-view-exit:hover {
+  background: #993838;
+  color: #fff;
+}
+
+[data-theme="dark"] .today-view-tick {
+  background: rgba(196, 184, 158, 0.06);
+}
+
+[data-theme="dark"] .today-view-tick-label {
+  color: #a09880;
+}
+
+[data-theme="dark"] .today-view-now {
+  background: #14a89b;
+  box-shadow: 0 0 4px rgba(20, 168, 155, 0.5);
+}
+
+[data-theme="dark"] .today-view-now::before {
+  background: #14a89b;
+}

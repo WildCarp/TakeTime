@@ -8,8 +8,10 @@ import FloatingBall from './components/FloatingBall/FloatingBall';
 import TaskModal from './components/Modals/TaskModal';
 import TagGroupModal from './components/Modals/TagGroupModal';
 import TaskDetailPanel from './components/TaskDetail/TaskDetailPanel';
+import TodayView from './components/TodayView/TodayView';
 import Toast from './components/Toast/Toast';
 import ConfirmDialog from './components/Toast/ConfirmDialog';
+import { isTauri, enterFloatingMode, exitFloatingMode } from './utils/tauriWindow';
 import { Task, TagGroup } from './types';
 import './App.css';
 
@@ -25,6 +27,26 @@ function AppContent() {
   const [editingTagGroup, setEditingTagGroup] = useState<TagGroup | null>(null);
   const [detailTask, setDetailTask] = useState<Task | null>(null);
   const [detailOpen, setDetailOpen] = useState(false);
+  const [floatingMode, setFloatingMode] = useState(false);
+
+  const isTauriEnv = isTauri();
+
+  // 切换悬浮模式
+  const handleToggleFloating = useCallback(async () => {
+    if (!floatingMode) {
+      await enterFloatingMode();
+      setFloatingMode(true);
+    } else {
+      await exitFloatingMode();
+      setFloatingMode(false);
+    }
+  }, [floatingMode]);
+
+  // 退出悬浮模式
+  const handleExitFloating = useCallback(async () => {
+    await exitFloatingMode();
+    setFloatingMode(false);
+  }, []);
 
   // 打开任务详情
   const handleTaskClick = useCallback((task: Task) => {
@@ -58,6 +80,16 @@ function AppContent() {
     goToToday();
   }, [goToToday]);
 
+  // 悬浮模式：只显示今日视图
+  if (floatingMode) {
+    return (
+      <div className="app-container app-floating" data-theme={theme}>
+        <TodayView theme={theme} onExitFloating={handleExitFloating} />
+        <Toast />
+      </div>
+    );
+  }
+
   return (
     <div className="app-container" data-theme={theme}>
       {/* 侧边栏 */}
@@ -85,6 +117,8 @@ function AppContent() {
         onAddTask={() => setTaskModalOpen(true)}
         onLocateToday={handleLocateToday}
         onToggleTheme={toggleTheme}
+        onToggleFloating={handleToggleFloating}
+        isTauriEnv={isTauriEnv}
         theme={theme}
       />
 
