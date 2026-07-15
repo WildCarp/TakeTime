@@ -2,7 +2,7 @@
   flex: 1;
   position: relative;
   overflow: hidden;
-  background: #faf6ee;
+  background: #f8f4ea;
   font-family: Nunito, 'Noto Sans SC', sans-serif;
   min-height: 0;
 }
@@ -17,7 +17,7 @@
   display: flex;
   align-items: center;
   z-index: 100;
-  background: #faf6ee;
+  background: #f8f4ea;
   border-bottom: 2px solid rgba(114, 93, 66, 0.15);
   overflow: hidden;
 }
@@ -40,7 +40,7 @@
   bottom: 0;
   width: 80px;
   z-index: 100;
-  background: #faf6ee;
+  background: #f8f4ea;
   border-right: 2px solid rgba(114, 93, 66, 0.15);
   overflow: hidden;
 }
@@ -104,7 +104,7 @@
 
 .grid-line.horizontal.week-boundary {
   height: 2px;
-  background: rgba(114, 93, 66, 0.35);
+  background: rgba(114, 93, 66, 0.25);
 }
 
 /* 当天行背景色区分 */
@@ -170,7 +170,7 @@
 
 [data-theme="dark"] .grid-line.horizontal.week-boundary {
   height: 2px;
-  background: rgba(196, 184, 158, 0.28);
+  background: rgba(196, 184, 158, 0.20);
 }
 
 [data-theme="dark"] .grid-line.vertical.hour-line {
