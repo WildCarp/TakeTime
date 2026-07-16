@@ -14,7 +14,7 @@ async function generate() {
   const svgBuffer = fs.readFileSync(svgPath);
 
   // 生成各尺寸 PNG（文件名需与 tauri.conf.json 的 icon 列表一致：${size}x${size}.png）
-  const sizes = [32, 128, 256];
+  const sizes = [16, 32, 128, 256];
   for (const size of sizes) {
     await sharp(svgBuffer)
       .resize(size, size)
@@ -28,11 +28,10 @@ async function generate() {
     .png()
     .toFile(path.join(iconsDir, '128x128@2x.png'));
 
-  // ICO：先用 sharp 生成 256x256 的 PNG，再用 png-to-ico 生成标准 ICO 容器格式
-  // （Tauri 能识别 png 后缀的伪 ico，但标准 ICO 容器在 Windows 资源管理器/任务栏渲染更可靠）
+  // ICO：包含多个尺寸（16/32/128/256），系统托盘使用 16x16，任务栏/资源管理器使用更大尺寸
   const pngToIco = (await import('png-to-ico')).default;
-  const png256 = path.join(iconsDir, '256x256.png');
-  const icoBuffer = await pngToIco(png256);
+  const icoInputs = [16, 32, 128, 256].map(s => path.join(iconsDir, `${s}x${s}.png`));
+  const icoBuffer = await pngToIco(icoInputs);
   fs.writeFileSync(path.join(iconsDir, 'icon.ico'), icoBuffer);
 
   console.log('Icons generated successfully!');
