@@ -1,0 +1,1 @@
+NEW_EXE size=32 x=32 samples=0 Gmin=0 Gmax=0 span=0 => NO_SAMPLES

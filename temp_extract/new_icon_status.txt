@@ -1,0 +1,1 @@
+OK size=x saved=temp_extract\new_release_icon.png

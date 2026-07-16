@@ -1,0 +1,1 @@
+ERR Input file contains unsupported image format

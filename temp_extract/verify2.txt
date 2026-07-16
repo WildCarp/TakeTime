@@ -1,0 +1,1 @@
+RELEASE_EXE frame=32px samples=244 Gspan=28 verdict=GRADIENT

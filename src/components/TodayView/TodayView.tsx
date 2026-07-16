@@ -56,19 +56,8 @@ export default function TodayView({ theme, onExitFloating }: TodayViewProps) {
   // 完成动画状态
   const [animatingTaskIds, setAnimatingTaskIds] = useState<Set<string>>(new Set());
 
-  // 窗口聚焦状态（控制退出按钮显示）
-  const [focused, setFocused] = useState(true);
-
-  useEffect(() => {
-    const handleFocus = () => setFocused(true);
-    const handleBlur = () => setFocused(false);
-    window.addEventListener('focus', handleFocus);
-    window.addEventListener('blur', handleBlur);
-    return () => {
-      window.removeEventListener('focus', handleFocus);
-      window.removeEventListener('blur', handleBlur);
-    };
-  }, []);
+  // 鼠标悬停状态（控制退出按钮显示）
+  const [hovered, setHovered] = useState(false);
 
   // 处理勾选完成（带音效）
   const handleCheckboxClick = useCallback((taskId: string, completed: boolean) => {
@@ -236,7 +225,12 @@ export default function TodayView({ theme, onExitFloating }: TodayViewProps) {
   }
 
   return (
-    <div className="today-view" data-tauri-drag-region>
+    <div
+      className="today-view"
+      data-tauri-drag-region
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
       {/* 顶部信息栏 */}
       <div className="today-view-header" data-tauri-drag-region>
         <span className="today-view-title" data-tauri-drag-region>
@@ -246,7 +240,7 @@ export default function TodayView({ theme, onExitFloating }: TodayViewProps) {
           {todayStr.slice(5).replace('/', '月') + '日'}
         </span>
         <button
-          className={`today-view-exit ${focused ? 'visible' : ''}`}
+          className={`today-view-exit ${hovered ? 'visible' : ''}`}
           onClick={onExitFloating}
         >
           ✕

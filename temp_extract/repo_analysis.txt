@@ -1,0 +1,2 @@
+src-tauri/icons/256x256.png => samples=307 Gspan=56 GRADIENT
+src-tauri/icons/icon.ico => samples=307 Gspan=56 GRADIENT
