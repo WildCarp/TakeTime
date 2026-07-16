@@ -20,8 +20,8 @@ fn main() {
     tauri::Builder::default()
         .system_tray(system_tray)
         .on_system_tray_event(|app, event| match event {
-            SystemTrayEvent::LeftClick { .. } => {
-                // 左键点击托盘图标：通知前端退出悬浮模式并显示主窗口
+            SystemTrayEvent::DoubleClick { .. } => {
+                // 左键双击托盘图标：通知前端退出悬浮模式并显示主窗口
                 let window = app.get_window("main").unwrap();
                 window.emit("tray-show-main", ()).unwrap_or_default();
                 window.show().unwrap_or_default();
