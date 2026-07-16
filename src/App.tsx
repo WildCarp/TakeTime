@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { DataProvider, useData } from './stores/dataStore';
 import { useTheme } from './hooks/useTheme';
 import { useCalendarZoom } from './hooks/useCalendarZoom';
@@ -48,6 +48,20 @@ function AppContent() {
     await exitFloatingMode();
     setFloatingMode(false);
   }, []);
+
+  // 监听系统托盘点击事件（退出悬浮模式并显示主窗口）
+  useEffect(() => {
+    if (!isTauriEnv) return;
+    let unlisten: (() => void) | undefined;
+    (async () => {
+      const { listen } = await import('@tauri-apps/api/event');
+      unlisten = await listen('tray-show-main', async () => {
+        await exitFloatingMode();
+        setFloatingMode(false);
+      });
+    })();
+    return () => { unlisten?.(); };
+  }, [isTauriEnv]);
 
   // 打开任务详情
   const handleTaskClick = useCallback((task: Task) => {

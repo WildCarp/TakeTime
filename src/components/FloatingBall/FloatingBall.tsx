@@ -52,9 +52,10 @@ export default function FloatingBall({
     (e.target as HTMLElement).releasePointerCapture(e.pointerId);
   }, []);
 
-  // 窗口 resize 时确保不超出边界
+  // 窗口 resize 时确保不超出边界（忽略最小化导致的 0 尺寸）
   useEffect(() => {
     const handleResize = () => {
+      if (window.innerWidth < 100 || window.innerHeight < 100) return;
       setPosition((prev) => ({
         x: Math.min(prev.x, window.innerWidth - 56),
         y: Math.min(prev.y, window.innerHeight - 56),
