@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { useData } from '../../stores/dataStore';
 import { Task } from '../../types';
-import { DEFAULT_TAG_GROUP_ID, PRESET_COLORS, PRESET_COLORS_DARK, TASK_BLOCK_COLORS, TASK_BLOCK_COLORS_DARK } from '../../constants';
+import { PRESET_COLORS, PRESET_COLORS_DARK, TASK_BLOCK_COLORS, TASK_BLOCK_COLORS_DARK } from '../../constants';
 import { showToast } from '../Toast/Toast';
 import { showConfirm } from '../Toast/ConfirmDialog';
 import './Sidebar.css';
@@ -235,14 +235,12 @@ export default function Sidebar({
                   <span className="tag-group-badge-content">
                     {group.emoji} {group.name}
                   </span>
-                  {group.id !== DEFAULT_TAG_GROUP_ID && (
-                    <button
-                      className="tag-group-edit-btn"
-                      onClick={() => onEditTagGroup(group.id)}
-                    >
-                      修改
-                    </button>
-                  )}
+                  <button
+                    className="tag-group-edit-btn"
+                    onClick={() => onEditTagGroup(group.id)}
+                  >
+                    修改
+                  </button>
                 </span>
               </div>
 

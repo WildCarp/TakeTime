@@ -13,9 +13,9 @@ export const PRESET_COLORS: { key: string; value: string; label: string }[] = [
   { key: 'cyan', value: '#66D9E8', label: '青蓝' },
   { key: 'sky', value: '#4DABF7', label: '天空蓝' },
   { key: 'indigo', value: '#5C7CFA', label: '靛蓝' },
-  { key: 'lavender', value: '#748FFC', label: '薰衣草紫' },
-  { key: 'berry', value: '#DA77F2', label: '莓果紫' },
-  { key: 'grape', value: '#E599F7', label: '葡萄紫' },
+  { key: 'lavender', value: '#7C6CF7', label: '薰衣草紫' },
+  { key: 'berry', value: '#C850C0', label: '莓果紫' },
+  { key: 'grape', value: '#E8A0F0', label: '葡萄紫' },
   { key: 'sakura', value: '#F783AC', label: '樱花粉' },
   { key: 'stone', value: '#CED4DA', label: '岩石灰' },
 ];
@@ -34,10 +34,10 @@ export const PRESET_COLORS_DARK: Record<string, string> = {
   sky: '#4a6099',
   indigo: '#4a5090',
   lavender: '#5e4490',
-  berry: '#7a3f8a',
-  grape: '#8a4a90',
+  berry: '#7a2878',
+  grape: '#9a5aa0',
   sakura: '#8a5060',
-  stone: '#5a4d3a',
+  stone: '#5c5c5c',
 };
 
 // 任务格子颜色映射（直接使用标签组预设颜色作为背景色）
@@ -53,11 +53,11 @@ export const TASK_BLOCK_COLORS: Record<string, { bg: string; text: string }> = {
   cyan: { bg: '#66D9E8', text: '#104550' },
   sky: { bg: '#4DABF7', text: '#0e3060' },
   indigo: { bg: '#5C7CFA', text: '#1a2060' },
-  lavender: { bg: '#748FFC', text: '#1e2560' },
-  berry: { bg: '#DA77F2', text: '#4a1060' },
-  grape: { bg: '#E599F7', text: '#4a1060' },
+  lavender: { bg: '#7C6CF7', text: '#1e1560' },
+  berry: { bg: '#C850C0', text: '#3a0838' },
+  grape: { bg: '#E8A0F0', text: '#4a1060' },
   sakura: { bg: '#F783AC', text: '#6a1535' },
-  stone: { bg: '#868E96', text: '#2d3540' },
+  stone: { bg: '#868E96', text: '#2c3038' },
 };
 
 // 夜间模式任务格子颜色（降低亮度和饱和度）
@@ -73,11 +73,11 @@ export const TASK_BLOCK_COLORS_DARK: Record<string, { bg: string; text: string }
   cyan: { bg: '#4a8a90', text: '#ddf5f5' },
   sky: { bg: '#5c6aa5', text: '#dde3f5' },
   indigo: { bg: '#4a5090', text: '#ddddf5' },
-  lavender: { bg: '#7a54a0', text: '#ecddf5' },
-  berry: { bg: '#9450a5', text: '#f0ddf5' },
-  grape: { bg: '#8a4a90', text: '#f0ddf5' },
+  lavender: { bg: '#6a4a9a', text: '#ecddf5' },
+  berry: { bg: '#8a3885', text: '#f5ddf5' },
+  grape: { bg: '#9a5aa0', text: '#f5e0f8' },
   sakura: { bg: '#a56e78', text: '#f5dde3' },
-  stone: { bg: '#6b5a3d', text: '#e8e0d4' },
+  stone: { bg: '#5c5c5c', text: '#e0e0e0' },
 };
 
 // 预设 emoji（40 个，按实用顺序排列）
@@ -110,7 +110,7 @@ export const DEFAULT_TAG_GROUP_ID = 'default-tag-group';
 export const DEFAULT_TAG_GROUP: TagGroup = {
   id: DEFAULT_TAG_GROUP_ID,
   name: '默认',
-  color: 'sky',
+  color: 'teal',
   emoji: '💼',
 };
 

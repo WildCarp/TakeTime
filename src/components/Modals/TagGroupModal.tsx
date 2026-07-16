@@ -52,7 +52,12 @@ export default function TagGroupModal({ open, editingGroup, onClose, theme }: Ta
     }
 
     if (editingGroup) {
-      updateTagGroup(editingGroup.id, { name: name.trim(), color, emoji });
+      // 默认标签组只能修改颜色和 emoji，不能修改名称
+      if (editingGroup.id === DEFAULT_TAG_GROUP_ID) {
+        updateTagGroup(editingGroup.id, { color, emoji });
+      } else {
+        updateTagGroup(editingGroup.id, { name: name.trim(), color, emoji });
+      }
     } else {
       addTagGroup({ name: name.trim(), color, emoji });
     }
@@ -96,6 +101,7 @@ export default function TagGroupModal({ open, editingGroup, onClose, theme }: Ta
               onChange={(e) => setName(e.target.value)}
               placeholder="输入标签组名称"
               autoFocus
+              disabled={editingGroup?.id === DEFAULT_TAG_GROUP_ID}
             />
           </div>
 
