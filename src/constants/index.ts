@@ -57,7 +57,7 @@ export const TASK_BLOCK_COLORS: Record<string, { bg: string; text: string }> = {
   berry: { bg: '#C850C0', text: '#3a0838' },
   grape: { bg: '#E8A0F0', text: '#4a1060' },
   sakura: { bg: '#F783AC', text: '#6a1535' },
-  stone: { bg: '#868E96', text: '#2c3038' },
+  stone: { bg: '#CED4DA', text: '#3a4048' },
 };
 
 // 夜间模式任务格子颜色（降低亮度和饱和度）
