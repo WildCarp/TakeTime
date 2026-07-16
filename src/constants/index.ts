@@ -13,9 +13,9 @@ export const PRESET_COLORS: { key: string; value: string; label: string }[] = [
   { key: 'cyan', value: '#66D9E8', label: '青蓝' },
   { key: 'sky', value: '#4DABF7', label: '天空蓝' },
   { key: 'indigo', value: '#5C7CFA', label: '靛蓝' },
-  { key: 'lavender', value: '#7C6CF7', label: '薰衣草紫' },
-  { key: 'berry', value: '#C850C0', label: '莓果紫' },
-  { key: 'grape', value: '#E8A0F0', label: '葡萄紫' },
+  { key: 'lavender', value: '#8A6CF7', label: '薰衣草紫' },
+  { key: 'berry', value: '#bd75ee', label: '香芋紫' },
+  { key: 'grape', value: '#da64da', label: '葡萄紫' },
   { key: 'sakura', value: '#F783AC', label: '樱花粉' },
   { key: 'stone', value: '#CED4DA', label: '岩石灰' },
 ];
@@ -33,9 +33,9 @@ export const PRESET_COLORS_DARK: Record<string, string> = {
   cyan: '#3d7a80',
   sky: '#4a6099',
   indigo: '#4a5090',
-  lavender: '#5e4490',
-  berry: '#7a2878',
-  grape: '#9a5aa0',
+  lavender: '#6c4a90',
+  berry: '#7a4a90',
+  grape: '#8a3a8a',
   sakura: '#8a5060',
   stone: '#5c5c5c',
 };
@@ -53,9 +53,9 @@ export const TASK_BLOCK_COLORS: Record<string, { bg: string; text: string }> = {
   cyan: { bg: '#66D9E8', text: '#104550' },
   sky: { bg: '#4DABF7', text: '#0e3060' },
   indigo: { bg: '#5C7CFA', text: '#1a2060' },
-  lavender: { bg: '#7C6CF7', text: '#1e1560' },
-  berry: { bg: '#C850C0', text: '#3a0838' },
-  grape: { bg: '#E8A0F0', text: '#4a1060' },
+  lavender: { bg: '#8A6CF7', text: '#1e1560' },
+  berry: { bg: '#bd75ee', text: '#3a1060' },
+  grape: { bg: '#da64da', text: '#3a0838' },
   sakura: { bg: '#F783AC', text: '#6a1535' },
   stone: { bg: '#CED4DA', text: '#3a4048' },
 };
@@ -73,9 +73,9 @@ export const TASK_BLOCK_COLORS_DARK: Record<string, { bg: string; text: string }
   cyan: { bg: '#4a8a90', text: '#ddf5f5' },
   sky: { bg: '#5c6aa5', text: '#dde3f5' },
   indigo: { bg: '#4a5090', text: '#ddddf5' },
-  lavender: { bg: '#6a4a9a', text: '#ecddf5' },
-  berry: { bg: '#8a3885', text: '#f5ddf5' },
-  grape: { bg: '#9a5aa0', text: '#f5e0f8' },
+  lavender: { bg: '#6c4a9a', text: '#ecddf5' },
+  berry: { bg: '#7a4a90', text: '#f0ddf8' },
+  grape: { bg: '#8a3a8a', text: '#f5ddf5' },
   sakura: { bg: '#a56e78', text: '#f5dde3' },
   stone: { bg: '#5c5c5c', text: '#e0e0e0' },
 };
@@ -98,7 +98,7 @@ export const EMOJI_LABELS: Record<string, string> = {
   '✈️': '旅行', '🎮': '游戏', '🎬': '影视', '🎵': '音乐',
   '🎨': '绘画', '📷': '摄影', '🎯': '目标', '🔧': '维修',
   '☕': '休息', '🍔': '饮食', '🎂': '生日', '🎁': '礼物',
-  '💊': '健康', '🏥': '医疗', '🐾': '宠物', '🌿': '自然',
+  '💊': '吃药', '🏥': '医疗', '🐾': '宠物', '🌿': '种植',
   '🌙': '晚间', '☀️': '早间', '📅': '日程', '⏰': '提醒',
   '💰': '财务', '🔑': '重要', '❤️': '喜爱', '⭐': '收藏',
 };
@@ -116,10 +116,10 @@ export const DEFAULT_TAG_GROUP: TagGroup = {
 
 // 日程表默认配置
 export const CALENDAR_DEFAULTS = {
-  startHour: 8,       // 默认起始时间
-  endHour: 20,        // 默认结束时间
+  startHour: 9,       // 默认起始时间
+  endHour: 17,        // 默认结束时间
   visibleDays: 7,     // 默认显示天数
-  minHours: 4,        // 最小时间范围
+  minHours: 3,        // 最小时间范围
   maxHours: 24,       // 最大时间范围（缩到最小时 0-24h 铺满）
   minDays: 3,         // 最小天数（缩放到最大时至少看到3天）
   maxDays: 14,        // 最大天数（缩到最小时显示14天）

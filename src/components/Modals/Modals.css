@@ -297,6 +297,20 @@
   color: #6b5d4a;
 }
 
+[data-theme="dark"] .color-option.selected {
+  border-color: #e0d6c8;
+  box-shadow: 0 0 0 2px #2a2218, 0 0 0 4px #e0d6c8;
+}
+
+[data-theme="dark"] .emoji-option:hover {
+  background: rgba(25, 200, 185, 0.15);
+}
+
+[data-theme="dark"] .emoji-option.selected {
+  border-color: #11948a;
+  background: rgba(17, 148, 138, 0.2);
+}
+
 /* 复选框标签 */
 .form-checkbox-label {
   display: flex;
